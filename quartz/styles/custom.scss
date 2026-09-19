@@ -1,3 +1,691 @@
 @use "./variables.scss" as *;
+@use "./responsive.scss";
 
-// put your custom CSS here!
+// Typography system
+$font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", system-ui,
+  sans-serif;
+$font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
+  monospace;
+
+$scale-sm: 14px;
+$scale-base: 15px;
+$scale-xl: 21px;
+$note-title-size: 26.87px;
+
+:root {
+  --font: #{$font};
+  --scale-sm: #{$scale-sm};
+  --scale-base: #{$scale-base};
+  --scale-xl: #{$scale-xl};
+
+  --titleFont: var(--font);
+  --headerFont: var(--font);
+  --bodyFont: var(--font);
+  --codeFont: #{$font-mono};
+  --font-text: var(--font);
+  --font-interface: var(--font);
+  --font-monospace: #{$font-mono};
+  --font-default: var(--font);
+  --font-text-override: var(--font);
+  --font-text-theme: var(--font);
+  --font-interface-override: var(--font);
+  --inline-title-font: var(--font);
+  --file-header-font: var(--font);
+  --h1-font: var(--font);
+  --h2-font: var(--font);
+  --h3-font: var(--font);
+  --h4-font: var(--font);
+  --h5-font: var(--font);
+  --h6-font: var(--font);
+}
+
+@mixin use-font {
+  font-family: var(--font);
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @include use-font;
+  font-size: var(--scale-base);
+  font-weight: 400;
+}
+
+// Nav title — 21px / 400 (beat Obsidian theme h2.page-title rules)
+html[saved-theme="light"] body h2.page-title,
+html[saved-theme="dark"] body h2.page-title,
+html[saved-theme="light"] body .page-title,
+html[saved-theme="dark"] body .page-title,
+html[saved-theme="light"] body .page-title a,
+html[saved-theme="dark"] body .page-title a,
+html[saved-theme="light"] body .explorer-toggle > h2,
+html[saved-theme="dark"] body .explorer-toggle > h2 {
+  @include use-font;
+  font-size: var(--scale-xl);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+// Nav links — 15px / 400
+.nav-file-title,
+.explorer .nav-files-container a,
+.explorer .folder-button,
+.explorer .folder-title {
+  @include use-font;
+  font-size: var(--scale-base);
+  font-weight: 400;
+}
+
+// Note page title — 26.87px / 400
+html[saved-theme="light"] body h1.article-title,
+html[saved-theme="dark"] body h1.article-title {
+  @include use-font;
+  font-size: $note-title-size;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0.25rem 0 0.5rem;
+}
+
+// Note date — 14px / 400
+.content-meta,
+.content-meta time {
+  @include use-font;
+  font-size: var(--scale-sm);
+  font-weight: 400;
+  color: var(--gray);
+}
+
+// In-note headings — match site title typography (not default h2/h3 bold)
+@mixin content-heading {
+  @include use-font;
+  color: var(--dark);
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+// In-article headings — higher specificity than Obsidian theme `html body h2` rules
+html[saved-theme="light"] body article .markdown-preview-view,
+html[saved-theme="dark"] body article .markdown-preview-view {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include content-heading;
+
+    > a[role="anchor"],
+    > a[href^="#"] {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+      color: inherit;
+    }
+  }
+
+  h1 {
+    font-size: var(--scale-xl);
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-size: var(--scale-xl);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: var(--scale-base);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: var(--scale-base);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+article {
+  p,
+  li {
+    @include use-font;
+    font-size: var(--scale-base);
+    font-weight: 400;
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  code {
+    font-family: #{$font-mono};
+    font-size: 0.875em;
+  }
+}
+
+pre,
+pre code {
+  font-family: #{$font-mono};
+  font-size: 0.875em;
+}
+
+// Keep typography on interactive states
+a,
+a:hover,
+a:focus,
+a:active,
+button,
+input,
+textarea,
+.search-button,
+.search-bar,
+.breadcrumb-container,
+.breadcrumb-element {
+  @include use-font;
+}
+
+// Right sidebar section titles — match "My Personal Wiki" nav title
+@mixin sidebar-section-title {
+  @include use-font;
+  font-size: var(--scale-xl);
+  font-weight: 400;
+  color: var(--dark);
+  margin: 0;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+
+// Sidebar section titles — beat Obsidian theme body h3 rules
+html[saved-theme="light"] body .sidebar.right .graph > h3,
+html[saved-theme="dark"] body .sidebar.right .graph > h3,
+html[saved-theme="light"] body .sidebar.right .backlinks > h3,
+html[saved-theme="dark"] body .sidebar.right .backlinks > h3,
+html[saved-theme="light"] body .sidebar.right button.toc-header h3,
+html[saved-theme="dark"] body .sidebar.right button.toc-header h3 {
+  @include sidebar-section-title;
+}
+
+.page-header .breadcrumb-container {
+  font-size: var(--scale-sm);
+  font-weight: 400;
+  color: var(--gray);
+
+  a {
+    font-weight: 400;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: var(--dark);
+    }
+  }
+}
+
+// Table of Contents — fix collapse/expand visibility
+.sidebar.right .toc {
+  flex: 0 0 auto;
+  overflow: visible;
+
+  &:has(button.toc-header.collapsed) {
+    flex: 0 0 auto;
+    min-height: 1.4rem;
+    overflow: hidden;
+  }
+
+  &:not(:has(button.toc-header.collapsed)) {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+}
+
+button.toc-header {
+  @include use-font;
+  width: 100%;
+}
+
+@mixin sidebar-link($size: var(--scale-base)) {
+  @include use-font;
+  font-size: $size;
+  font-weight: 400;
+  color: var(--gray);
+  opacity: 0.65;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 0.125rem 0.25rem;
+  transition: color 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--darkgray);
+    opacity: 0.85;
+  }
+}
+
+// TOC links — beat component + Obsidian theme rules
+html[saved-theme="light"] body .sidebar.right ul.toc-content,
+html[saved-theme="dark"] body .sidebar.right ul.toc-content {
+  &.collapsed {
+    display: none;
+  }
+
+  &:not(.collapsed) {
+    display: block;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  li > a {
+    @include sidebar-link;
+
+    &.in-view {
+      font-weight: 400;
+      color: var(--dark);
+      opacity: 1;
+      background-color: color-mix(in srgb, var(--secondary) 12%, transparent);
+    }
+  }
+}
+
+// All notes index (/posts) + topic note lists (/topics/*)
+body[data-slug="posts"],
+body[data-slug^="topics/"] {
+  .content-meta {
+    display: none;
+  }
+}
+
+.posts-page {
+  margin-top: 0.15rem;
+}
+
+// Posts list — beat Obsidian theme link/date styles
+html[saved-theme="light"] body .posts-index,
+html[saved-theme="dark"] body .posts-index {
+  .posts-list-date {
+    font-style: normal;
+  }
+
+  .posts-index-topic,
+  .posts-index-topics-list a,
+  .posts-list-topic {
+    font-weight: 400;
+  }
+
+  .posts-list .posts-list-title.internal,
+  .posts-list a.posts-list-title.internal-link {
+    color: var(--darkgray);
+    font-weight: 400;
+
+    &:link,
+    &:visited {
+      color: var(--darkgray);
+    }
+
+    &:hover,
+    &:focus {
+      color: var(--dark);
+    }
+  }
+}
+
+// Left sidebar notes list layout (typography: sidebar-overrides.scss, loaded after theme CSS)
+.sidebar.left .recent-notes {
+  > h3:empty {
+    display: none;
+  }
+
+  > ul.recent-ul > li .section > .tags {
+    display: none;
+  }
+
+  > p {
+    margin-top: 0.85rem;
+  }
+
+}
+
+// Backlinks — match Table of Contents link typography (scroll/fade overrides in sidebar-overrides.scss)
+html[saved-theme="light"] body .backlinks > ul.overflow,
+html[saved-theme="dark"] body .backlinks > ul.overflow {
+  list-style: disc;
+  padding-left: 1.25rem;
+  max-height: none;
+  overflow-y: visible;
+}
+
+html[saved-theme="light"] body .backlinks > ul.overflow > li.overflow-end,
+html[saved-theme="dark"] body .backlinks > ul.overflow > li.overflow-end {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  visibility: hidden;
+  list-style: none;
+}
+
+html[saved-theme="light"] body .backlinks > ul.overflow > li:not(.overflow-end),
+html[saved-theme="dark"] body .backlinks > ul.overflow > li:not(.overflow-end) {
+  display: list-item;
+  color: var(--gray);
+
+  &::marker {
+    color: var(--gray);
+    opacity: 0.65;
+  }
+}
+
+html[saved-theme="light"] body .backlinks > ul.overflow > li > a,
+html[saved-theme="dark"] body .backlinks > ul.overflow > li > a {
+  @include sidebar-link;
+}
+
+// Unified page background (Obsidian theme plugin overrides quartz.config.yaml)
+$bg-light: #fffcf0;
+$bg-dark: #100f0f;
+
+@mixin surface-vars($bg) {
+  --light: #{$bg};
+  --bg: #{$bg};
+  --lightgray: #{$bg};
+  --color-base-00: #{$bg};
+  --color-base-05: #{$bg};
+  --color-base-10: #{$bg};
+  --color-base-20: #{$bg};
+  --color-base-25: #{$bg};
+  --color-base-30: #{$bg};
+  --background-primary: #{$bg};
+  --background-primary-alt: #{$bg};
+  --background-secondary: #{$bg};
+  --background-secondary-alt: #{$bg};
+  --tab-container-background: #{$bg};
+}
+
+:root,
+:root[saved-theme="light"] {
+  @include surface-vars($bg-light);
+  --lightgray: #e5e0d4;
+  --light: #f3ede0;
+}
+
+:root[saved-theme="dark"] {
+  @include surface-vars($bg-dark);
+  --lightgray: #2e2d2d;
+  --light: #1c1b1b;
+}
+
+// Popover — match site background (popover.scss uses var(--light) which differs)
+html[saved-theme="light"] .popover > .popover-inner,
+html[saved-theme="light"] .popover > .popover-inner .popover-hint,
+html[saved-theme="light"] .popover > .popover-inner .posts-index,
+html[saved-theme="light"] .popover > .popover-inner article {
+  background-color: $bg-light;
+}
+
+html[saved-theme="dark"] .popover > .popover-inner,
+html[saved-theme="dark"] .popover > .popover-inner .popover-hint,
+html[saved-theme="dark"] .popover > .popover-inner .posts-index,
+html[saved-theme="dark"] .popover > .popover-inner article {
+  background-color: $bg-dark;
+}
+
+// Graph view — full vault on every page, visible nodes and edges
+.sidebar.right .graph {
+  > h3 {
+    @include sidebar-section-title;
+  }
+
+  > .graph-outer {
+    height: 280px;
+    border-color: color-mix(in srgb, var(--gray) 35%, transparent);
+  }
+}
+
+html[saved-theme="light"] body,
+html[saved-theme="light"] body[data-slug] div#quartz-root.page,
+html[saved-theme="light"] body[data-slug] .page > div#quartz-body,
+html[saved-theme="light"] .page > div#quartz-body div.center,
+html[saved-theme="light"] .page > div#quartz-body footer,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar.left,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar.right,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar.left .explorer,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar.left .explorer .explorer-content,
+html[saved-theme="light"] .page > div#quartz-body div.sidebar.left .nav-files-container,
+html[saved-theme="light"] body .graph > .graph-outer,
+html[saved-theme="light"] body .graph > .global-graph-outer > .global-graph-container {
+  background-color: $bg-light;
+}
+
+html[saved-theme="dark"] body,
+html[saved-theme="dark"] body[data-slug] div#quartz-root.page,
+html[saved-theme="dark"] body[data-slug] .page > div#quartz-body,
+html[saved-theme="dark"] .page > div#quartz-body div.center,
+html[saved-theme="dark"] .page > div#quartz-body footer,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar.left,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar.right,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar.left .explorer,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar.left .explorer .explorer-content,
+html[saved-theme="dark"] .page > div#quartz-body div.sidebar.left .nav-files-container,
+html[saved-theme="dark"] body .graph > .graph-outer,
+html[saved-theme="dark"] body .graph > .global-graph-outer > .global-graph-container {
+  background-color: $bg-dark;
+}
+
+// Search — toolbar button, overlay backdrop, and results readability
+@mixin search-surface {
+  background-color: $bg-light;
+  border: 1px solid color-mix(in srgb, var(--gray) 28%, transparent);
+  box-shadow:
+    0 18px 48px rgba(27, 33, 48, 0.14),
+    0 8px 24px rgba(27, 33, 48, 0.08);
+}
+
+.search {
+  max-width: none;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.search > .search-button {
+  height: 2.125rem;
+  padding: 0 0.75rem 0 0;
+  border-radius: 8px;
+  border-color: color-mix(in srgb, var(--gray) 35%, transparent);
+  background: color-mix(in srgb, var(--dark) 3%, $bg-light);
+  box-shadow: 0 1px 2px rgba(27, 33, 48, 0.04);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: color-mix(in srgb, var(--secondary) 45%, var(--gray));
+    background: color-mix(in srgb, var(--secondary) 6%, $bg-light);
+    box-shadow: 0 2px 8px rgba(27, 33, 48, 0.08);
+  }
+
+  > p {
+    color: var(--darkgray);
+    font-size: var(--scale-sm);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  svg {
+    margin: 0 0.45rem 0 0.65rem;
+  }
+}
+
+.search > .search-container {
+  backdrop-filter: blur(18px) saturate(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(1.05);
+  background: color-mix(in srgb, $bg-light 72%, rgba(43, 43, 43, 0.18));
+}
+
+html[saved-theme="dark"] .search > .search-container {
+  background: color-mix(in srgb, $bg-dark 78%, rgba(0, 0, 0, 0.42));
+}
+
+.search > .search-container > .search-space {
+  margin-top: 10vh;
+}
+
+.search > .search-container > .search-space > *:not(.ghost-text):not(.tag-suggestions) {
+  @include search-surface;
+}
+
+.search > .search-container > .search-space > input.search-bar {
+  padding: 0.85em 1.1em;
+  font-size: 1.05em;
+  border-radius: 10px;
+  border-color: color-mix(in srgb, var(--gray) 32%, transparent);
+  background: $bg-light;
+  box-shadow:
+    0 16px 40px rgba(27, 33, 48, 0.12),
+    0 6px 18px rgba(27, 33, 48, 0.08);
+
+  &::placeholder {
+    color: color-mix(in srgb, var(--gray) 88%, transparent);
+  }
+
+  &:focus {
+    border-color: color-mix(in srgb, var(--secondary) 55%, var(--gray));
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--secondary) 14%, transparent),
+      0 16px 40px rgba(27, 33, 48, 0.12);
+  }
+}
+
+html[saved-theme="dark"] {
+  .search > .search-button {
+    background: color-mix(in srgb, var(--dark) 4%, $bg-dark);
+    border-color: color-mix(in srgb, var(--gray) 40%, transparent);
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, var(--secondary) 10%, $bg-dark);
+    }
+  }
+
+  .search > .search-container > .search-space > *:not(.ghost-text):not(.tag-suggestions),
+  .search > .search-container > .search-space > input.search-bar,
+  .search > .search-container > .search-space > .tag-suggestions {
+    background-color: $bg-dark;
+    border-color: color-mix(in srgb, var(--gray) 35%, transparent);
+    box-shadow:
+      0 18px 48px rgba(0, 0, 0, 0.35),
+      0 8px 24px rgba(0, 0, 0, 0.22);
+  }
+}
+
+.search > .search-container > .search-space > .search-layout {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+// Beat Obsidian theme body h3 rules (--h3-size: 1.318em, weight 660) on search hits
+html[saved-theme="light"] body .search > .search-container > .search-space > .search-layout > .results-container .result-card,
+html[saved-theme="dark"] body .search > .search-container > .search-space > .search-layout > .results-container .result-card {
+  display: block !important;
+  padding: 0.85em 1em !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--gray) 22%, transparent) !important;
+  border-radius: 0 !important;
+
+  > h3.card-title {
+    @include use-font;
+    font-size: var(--scale-base) !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    letter-spacing: normal !important;
+    margin: 0 !important;
+    color: var(--darkgray) !important;
+  }
+
+  > p.card-description {
+    @include use-font;
+    font-size: var(--scale-sm) !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    margin: 0.35em 0 0 !important;
+    color: var(--gray) !important;
+  }
+}
+
+.search > .search-container > .search-space > .search-layout > .results-container .result-card {
+  border-bottom-color: color-mix(in srgb, var(--gray) 22%, transparent);
+
+  &:hover,
+  &:focus,
+  &.focus {
+    background: color-mix(in srgb, var(--secondary) 8%, $bg-light);
+
+    > h3.card-title {
+      color: var(--dark) !important;
+    }
+  }
+}
+
+html[saved-theme="dark"]
+  .search
+  > .search-container
+  > .search-space
+  > .search-layout
+  > .results-container
+  .result-card {
+  &:hover,
+  &:focus,
+  &.focus {
+    background: color-mix(in srgb, var(--secondary) 14%, $bg-dark);
+
+    > h3.card-title {
+      color: var(--dark) !important;
+    }
+  }
+}
+
+.search > .search-container > .search-space > .search-layout > .preview-container {
+  background: $bg-light;
+  padding: 1.25rem 1.75rem 1.75rem;
+}
+
+html[saved-theme="dark"]
+  .search
+  > .search-container
+  > .search-space
+  > .search-layout
+  > .preview-container {
+  background: $bg-dark;
+}
+
+.search > .search-container > .search-space > .search-layout .highlight {
+  background: var(--textHighlight);
+  border-radius: 3px;
+  padding: 0.05em 0.1em;
+}
+
+.search > .search-container > .search-space > .tag-suggestions {
+  border-radius: 8px;
+  border-color: color-mix(in srgb, var(--gray) 30%, transparent);
+  box-shadow:
+    0 10px 28px rgba(27, 33, 48, 0.12),
+    0 4px 12px rgba(27, 33, 48, 0.08);
+}

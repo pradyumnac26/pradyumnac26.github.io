@@ -1,0 +1,373 @@
+// Loaded after Obsidian/quartz-themes CSS so sidebar note links keep body typography.
+html body .page > div#quartz-body div.sidebar.left {
+  border-right: none !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  margin-top: 0.5rem !important;
+  padding-left: 0 !important;
+  list-style: none !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li.recent-li {
+  margin: 0 0 0.875rem 0 !important;
+  list-style: none !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li.recent-li:last-child {
+  margin-bottom: 0 !important;
+}
+
+@mixin sidebar-note-override {
+  font-family: var(--font) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  letter-spacing: normal !important;
+  line-height: 1.5 !important;
+  text-transform: none !important;
+  margin: 0 !important;
+  margin-block: 0 !important;
+  --h3-size: 15px !important;
+  --h3-weight: 400 !important;
+  --font-weight: 400 !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li .section > .desc > h3 {
+  @include sidebar-note-override;
+  color: var(--darkgray) !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li .section > .desc > h3 > a,
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li .section > .desc > h3 > a.internal,
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li .section > .desc > h3 > a.internal-link {
+  @include sidebar-note-override;
+  color: var(--darkgray) !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+  padding: 0.125rem 0.25rem !important;
+  margin: -0.125rem -0.25rem !important;
+  border-radius: 4px !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition: color 0.2s ease, background-color 0.2s ease !important;
+
+  &:link,
+  &:visited,
+  &:active {
+    color: var(--darkgray) !important;
+    opacity: 1 !important;
+    background-color: transparent !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: var(--dark) !important;
+    opacity: 1 !important;
+    background-color: color-mix(in srgb, var(--secondary) 12%, transparent) !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes ul.tags,
+html body .page > div#quartz-body div.sidebar.left .recent-notes .posts-list-topics,
+html body .page > div#quartz-body div.sidebar.left .recent-notes .tag-link {
+  display: none !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > ul.recent-ul > li .section > .meta {
+  font-family: var(--font) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--gray) !important;
+  opacity: 1 !important;
+  margin: 0.2rem 0 0 !important;
+}
+
+html body .page > div#quartz-body div.sidebar.left .recent-notes > p > a {
+  @include sidebar-note-override;
+  color: var(--darkgray) !important;
+  text-decoration: none !important;
+  padding: 0.125rem 0.25rem !important;
+  margin: -0.125rem -0.25rem !important;
+  border-radius: 4px !important;
+  transition: color 0.2s ease, background-color 0.2s ease !important;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: var(--dark) !important;
+    background-color: color-mix(in srgb, var(--secondary) 12%, transparent) !important;
+  }
+}
+
+// All notes / topic lists — spacing, normal title color, non-italic dates
+html body .posts-index .posts-list {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html body .posts-index .posts-list-item {
+  padding: 0 !important;
+  margin: 0 0 1.25rem 0 !important;
+}
+
+html body .posts-index .posts-list-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+html body .posts-index .posts-list-date {
+  font-style: normal !important;
+}
+
+// Backlinks — drop scroll/fade chrome (Obsidian padding + overflow list = dark rule above Graph View)
+html body .backlinks {
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+html body .backlinks > ul.overflow,
+html body .backlinks > ul.overflow.gradient-active {
+  list-style: disc !important;
+  padding-left: 1.25rem !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  margin: 0.25rem 0 0 !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+html body .backlinks > ul.overflow > li.overflow-end {
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  list-style: none !important;
+}
+
+html body .backlinks > ul.overflow > li:not(.overflow-end) {
+  display: list-item !important;
+  color: var(--gray) !important;
+
+  &::marker {
+    color: var(--gray) !important;
+    opacity: 0.65 !important;
+  }
+}
+
+html body .posts-index .posts-list .posts-list-title.internal,
+html body .posts-index .posts-list a.posts-list-title.internal-link {
+  color: var(--darkgray) !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  background: none !important;
+
+  &:link,
+  &:visited,
+  &:active {
+    color: var(--darkgray) !important;
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    color: var(--dark) !important;
+    text-decoration: underline !important;
+    background: none !important;
+  }
+}
+
+// Mobile — loaded after Obsidian theme (which breaks layout without Explorer).
+@media all and (max-width: 800px) {
+  html body .page > div#quartz-body h2.page-title {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  // One gutter on the page container; stop Obsidian from zeroing it or using 100dvw.
+  html body .page > div#quartz-body {
+    padding-top: 0.5rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-bottom: 2rem !important;
+    box-sizing: border-box !important;
+  }
+
+  html body .page > div#quartz-body h2.page-title {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left > .flex-component {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.5rem !important;
+    min-height: calc(1.5rem + 2.25rem) !important;
+    flex-direction: row !important;
+    justify-content: flex-end !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left > .flex-component > div:first-child {
+    order: 2 !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left > .flex-component > div:nth-child(2) {
+    order: 1 !important;
+  }
+
+  // .center uses display:contents on mobile — its children become direct grid items and
+  // lose grid-area from base.scss. List pages use .posts-page (not article).
+  html body .page > div#quartz-body > .page-header {
+    grid-area: grid-header !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  html body .page > div#quartz-body > .page-header,
+  html body .page > div#quartz-body > article,
+  html body .page > div#quartz-body > .posts-page,
+  html body .page > div#quartz-body > hr,
+  html body .page > div#quartz-body > .page-footer,
+  html body .page > div#quartz-body div.center,
+  html body .page > div#quartz-body footer,
+  html body .page > div#quartz-body div.sidebar.left,
+  html body .page > div#quartz-body div.sidebar.right {
+    grid-column: 1 / -1 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html body .posts-index .posts-list-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 0 1rem !important;
+    width: 100% !important;
+  }
+
+  html body .posts-index .posts-list-date {
+    flex: 0 0 auto !important;
+  }
+
+  html body .posts-index .posts-list-title {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
+
+  html body .posts-index .posts-list-topics {
+    display: none !important;
+  }
+
+  html body .posts-index .posts-index-topic,
+  html body .posts-index .posts-index-topics-list a,
+  html body .posts-index .posts-list-topic,
+  html body a.internal-link.tag-link,
+  html body ul.tags a.tag-link {
+    font-weight: 400 !important;
+    --font-weight: 400 !important;
+    --pill-weight: 400 !important;
+    --link-weight: 400 !important;
+  }
+
+  // Theme toggle — Obsidian renders sun/moon via CSS mask (SVGs are hidden).
+  html body .page > div#quartz-body button.darkmode {
+    display: inline-flex !important;
+    visibility: visible !important;
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    min-width: 2.25rem !important;
+    min-height: 2.25rem !important;
+    padding: 0 !important;
+    border: 1px solid color-mix(in srgb, var(--gray) 35%, transparent) !important;
+    border-radius: 8px !important;
+    background: var(--darkgray) !important;
+    -webkit-mask-size: 1.1rem 1.1rem !important;
+    mask-size: 1.1rem 1.1rem !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    mask-position: center !important;
+  }
+
+  html[saved-theme="light"] body .page > div#quartz-body button.darkmode {
+    -webkit-mask-image: var(--sun-icon) !important;
+    mask-image: var(--sun-icon) !important;
+  }
+
+  html[saved-theme="dark"] body .page > div#quartz-body button.darkmode {
+    -webkit-mask-image: var(--moon-icon) !important;
+    mask-image: var(--moon-icon) !important;
+  }
+
+  html body .page > div#quartz-body button.darkmode svg {
+    display: none !important;
+  }
+
+  html body .page > div#quartz-body button.readermode {
+    display: none !important;
+  }
+
+  // Icon-only search — match theme toggle size and center the magnifying glass.
+  html body .page > div#quartz-body .sidebar.left .search {
+    max-width: 2.25rem !important;
+    flex: 0 0 auto !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left .search > .search-button {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    min-height: 2.25rem !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left .search > .search-button > p {
+    display: none !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left .search > .search-button svg {
+    margin: 0 !important;
+    width: 1.1rem !important;
+    height: 1.1rem !important;
+    min-width: 1.1rem !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left > .flex-component {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  html body .page > div#quartz-body .sidebar.left > .flex-component > div:first-child {
+    flex: 0 0 auto !important;
+    flex-grow: 0 !important;
+  }
+}
+
+@media all and (max-width: 380px) {
+  html body .page > div#quartz-body {
+    padding-left: 1.125rem !important;
+    padding-right: 1.125rem !important;
+  }
+}
