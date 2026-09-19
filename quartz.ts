@@ -1,3 +1,4 @@
+import { CustomOgImages } from "@quartz-community/og-image"
 import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
 import { componentRegistry } from "./quartz/components/registry"
 import { PageTypeDispatcher } from "./quartz/plugins/pageTypes/dispatcher"
@@ -5,6 +6,7 @@ import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
 import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
+import { titleAndDateOgImage } from "./quartz/util/ogImage"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
   showTags: false,
@@ -127,9 +129,16 @@ if (footer) {
 }
 
 config.plugins.emitters = config.plugins.emitters.filter(
-  (emitter) => emitter.name !== "PageTypeDispatcher",
+  (emitter) => emitter.name !== "PageTypeDispatcher" && emitter.name !== "CustomOgImages",
 )
 config.plugins.emitters.push(
+  CustomOgImages({
+    colorScheme: "lightMode",
+    width: 1200,
+    height: 630,
+    excludeRoot: false,
+    imageStructure: titleAndDateOgImage,
+  }),
   PageTypeDispatcher({
     defaults: baseLayout.defaults,
     byPageType: baseLayout.byPageType,

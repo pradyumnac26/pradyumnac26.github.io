@@ -16,8 +16,8 @@ configuration:
     fontOrigin: local
     cdnCaching: true
     typography:
-      header: -apple-system
-      body: -apple-system
+      header: Inter
+      body: Inter
       code: SF Mono
     colors:
       lightMode:
@@ -146,7 +146,12 @@ plugins:
   - source: "@quartz-community/favicon"
     enabled: true
   - source: "@quartz-community/og-image"
-    enabled: false
+    enabled: true
+    options:
+      colorScheme: lightMode
+      width: 1200
+      height: 630
+      excludeRoot: false
   - source: "@quartz-community/cname"
     enabled: true
   - source: "@quartz-community/canvas-page"

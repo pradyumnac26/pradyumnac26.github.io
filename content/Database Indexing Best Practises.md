@@ -14,7 +14,7 @@ here are some best practices to follow :
   
 - add indexes based on actual query patterns, especially columns used in filters, joins, and sorting  
   
-- use ‘explain analyze’ before adding an index to understand the query path, and after adding it to confirm the database is using the right index properly.  
+- use `explain analyze` before adding an index to understand the query path, and after adding it to confirm the database is using the right index properly.  
   
 - indexes can slow down writes, because every insert, update, and delete may now need to change in both the original table and the related indexes table. So avoid adding unnecessary indexes.  
   

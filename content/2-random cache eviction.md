@@ -18,7 +18,7 @@ LRU is better for small caches and 2-random is better for large caches
 You can research about it more and maybe read this article if this piques your curiosity -> [Why are Randomized Algorithms better than LRU?](https://danluu.com/2choices-eviction/)
 
 In fact most in-memory databases use this kind of eviction policy, check this out: [Redis](https://redis.io/docs/latest/develop/reference/eviction/)
-![2-choice cache eviction](https://pradyumnachippigiri.dev/_next/image?url=%2Fimages%2Ftil%2Fsystem-design%2F2-random.png&w=1920&q=75)
+![[2-random-cache-eviction.png]]
 
 ## Why this counts as an optimization
 

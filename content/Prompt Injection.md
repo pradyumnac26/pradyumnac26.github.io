@@ -7,7 +7,6 @@ sources:
 updated: 2026-09-18
 ---
 
-
 Prompt injection isn’t a prompt problem, it is an architectural problem.  
   
 Fixing prompts and making it better won’t solve it because LLMs can’t distinguish between instructions and data.  

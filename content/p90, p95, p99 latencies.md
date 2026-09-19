@@ -13,7 +13,7 @@ Super important latency metrics for production performance monitoring.
 - **p95** : 95% of requests are faster. 5% of requests are slower than this.
 - **p99** : 99% of requests are faster. 1 % of requests are slower than this. Catches the tail latency.
 
-![Percentile latency distribution showing the tail latency spike after p90](https://pradyumnachippigiri.dev/_next/image?url=%2Fimages%2Ftil%2Fp50-p95-p99-latencies%2Fpercentile-latency-graph.webp&w=1920&q=75)
+![[percentile-latency-graph.webp]]
 
 As you can see in the graph, the tail latency is spikes after p90, this is because of the 10% of requests that are slower than p90.
 

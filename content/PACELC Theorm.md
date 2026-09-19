@@ -7,7 +7,7 @@ sources:
 updated: 2026-03-11
 ---
 
-CAP theorem is probably the most over quoted concept in distributed systems.  
+[[CAP Theorm]] is probably the most over quoted concept in distributed systems.  
   
 But here’s something beyond CAP that very few talk about.  
   

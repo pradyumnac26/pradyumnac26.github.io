@@ -20,7 +20,7 @@ Instead of matching queries by exact string, semantic caching matches them by se
 
 If the similarity score passes a set threshold (typically somewhere between 0.85 and 0.95 (we will see why this range in particular late in the note)), the cache treats the new query as equivalent to a previously seen one. So during search if a sufficiently similar cached query is found, the system reuses the previously generated response instead of invoking the LLM again. It not only saved on latency, but it also saved on the token cost of an LLM call.
 
-![](https://myaiwiki.netlify.app/notes/semantic_cache_miss.png)![](https://myaiwiki.netlify.app/notes/semantic_cache_miss.png)
+![[semantic-cache-miss.png]]
 
 The search that happens here is a vector search that uses approximate nearest-neighbor algorithms like HNSW or libraries like FAISS rather than a brute-force comparison against every cached embedding, which is what keeps the lookup fast as the cache grows.
 
