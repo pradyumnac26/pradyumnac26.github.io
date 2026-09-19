@@ -1,0 +1,143 @@
+@use "../../styles/variables.scss" as *;
+
+.pixel-art-hero {
+  width: 100%;
+  margin: 0 0 1.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.pixel-art-stage {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 0 0.5rem;
+  transition: color 0.4s ease;
+}
+
+html[saved-theme="light"] .pixel-art-stage {
+  color: #57534e;
+}
+
+html[saved-theme="dark"] .pixel-art-stage {
+  color: #a1a1aa;
+}
+
+.pixel-art-frame,
+.pixel-art-frame-inner {
+  border: none;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.pixel-art-frame-inner {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.pixel-art-frame-glow {
+  display: none;
+}
+
+.pixel-art-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 512 / 192;
+  image-rendering: pixelated;
+  cursor: crosshair;
+  border-radius: 8px;
+}
+
+.pixel-art-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 0.85rem;
+  padding: 0 0.15rem;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+  font-size: 0.75rem;
+  opacity: 0.82;
+}
+
+.pixel-art-meta-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pixel-art-meta-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.4rem;
+  border-radius: 999px;
+  animation: pixel-art-pulse 2s ease-in-out infinite;
+  transition: background-color 0.4s ease;
+}
+
+html[saved-theme="light"] .pixel-art-meta-dot {
+  background: #f59e0b;
+}
+
+html[saved-theme="dark"] .pixel-art-meta-dot {
+  background: #818cf8;
+}
+
+@keyframes pixel-art-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.pixel-art-meta-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pixel-art-meta-hint {
+  opacity: 0.7;
+}
+
+.pixel-art-meta-badge {
+  padding: 0.15rem 0.45rem;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .pixel-art-meta-hint,
+  .pixel-art-meta-badge {
+    display: none;
+  }
+}
+
+@media all and ($mobile) {
+  .pixel-art-hero {
+    margin-bottom: 0.25rem;
+  }
+
+  .pixel-art-stage {
+    padding-bottom: 0;
+  }
+
+  .pixel-art-meta {
+    margin-top: 0.45rem;
+  }
+
+  body[data-slug="index"] article .markdown-preview-view h1:first-child {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}

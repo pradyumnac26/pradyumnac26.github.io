@@ -2,6 +2,7 @@ import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/conf
 import { componentRegistry } from "./quartz/components/registry"
 import { PageTypeDispatcher } from "./quartz/plugins/pageTypes/dispatcher"
 import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
+import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
@@ -110,6 +111,13 @@ config.plugins.transformers.push(topicGraphLinks(), sidebarNavOverrides())
 config.plugins.pageTypes ??= []
 config.plugins.pageTypes.push(PostsPage(), TopicPage())
 const baseLayout = await loadQuartzLayout()
+const pixelArt = PixelArtLandscape()
+const contentBeforeBody =
+  baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
+baseLayout.byPageType.content = {
+  ...baseLayout.byPageType.content,
+  beforeBody: [pixelArt, ...contentBeforeBody],
+}
 const footer = baseLayout.defaults.footer?.[0]
 
 if (footer) {
