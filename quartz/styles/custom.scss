@@ -107,6 +107,14 @@ html[saved-theme="dark"] body h1.article-title {
   line-height: 1.4;
 }
 
+// In-article body text — use muted gray for paragraphs and list items
+html[saved-theme="light"] body article .markdown-preview-view p,
+html[saved-theme="dark"] body article .markdown-preview-view p,
+html[saved-theme="light"] body article .markdown-preview-view li,
+html[saved-theme="dark"] body article .markdown-preview-view li {
+  color: var(--text-muted);
+}
+
 // In-article headings — higher specificity than Obsidian theme `html body h2` rules
 html[saved-theme="light"] body article .markdown-preview-view,
 html[saved-theme="dark"] body article .markdown-preview-view {
@@ -163,6 +171,7 @@ article {
     font-size: var(--scale-base);
     font-weight: 400;
   }
+
 
   strong,
   b {

@@ -9,7 +9,6 @@ updated: 2026-09-18
 ---
 Sources : 
 - https://www.maartengrootendorst.com/blog/quantization/ 
-- 
 
 Large Language Models (LLMs) are often too large to run on consumer hardware. These models may exceed billions of parameters and generally need GPUs with large amounts of VRAM to speed up inference
 

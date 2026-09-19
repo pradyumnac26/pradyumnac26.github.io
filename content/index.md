@@ -4,16 +4,12 @@ title: Home
 
 # Welcome!
 
-Hey! I'm Pradyumna — a software engineer with 3+ years of experience building backend systems, AI applications, and the tooling that holds them together.
+Hey! I'm Pradyumna, and this is my second brain,  a living knowledge base of things I'm learning, building, and exploring.
 
-I care deeply about distributed systems (scalability, reliability, performance), AI engineering (RAG, agents, evals), and the intersection of both. When I'm not coding, I'm usually writing about what I've learned, exploring startups, or trying out new frameworks.
+I'm a Senior Applied AI Engineer building Agentic Adtech at WBD. I write about AI, LLMs, distributed systems, and the engineering ideas that fascinate me.
 
-This site is my digital garden — a growing collection of notes on engineering, data, and systems. Think of it as a hypertext notebook: ideas linked together and refined over time.
+Explore:
 
-Here are some places you may want to visit:
+- [All notes](posts) 
 
-- [[posts|All notes]] — everything I've written, newest first
-- [pradyumnachippigiri.dev](https://pradyumnachippigiri.dev) — my main site
-- [GitHub](https://github.com/pchippigiri)
-
-— pradyumna :)
+Enjoy your time around :)
