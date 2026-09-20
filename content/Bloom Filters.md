@@ -136,17 +136,17 @@ For query operation (meaning to see if a username exists or not )we perform the 
 ### Obvious Questions that Pop-up
 
 - _**What happens if all the boxes end up with 1s ?**_
-    
+
     Well, in that case the bloom filter becomes useless, because for every query it’ll say “maybe present”, and we’ll end up hitting the DB every time, this in-turn increases the false positivity rate (which is not what we want) so we lose the whole benefit of using it.
-    
+
     That’s why sizing matters: we need enough bits (and the right number of hash functions) so the filter doesn’t get too full, and the false positive rate stays low.
     
 - _**So what do we do when the filter starts getting full? Can we scale it?**_
-    
+
     The common approach is to layer Bloom filters (the idea behind scaling bloom filters).
-    
+
     When the current Bloom filter starts getting too full (too many 1s → false positives go up), we don’t try to expand the same bit array (because we would need to rehash and reorder , not optimal). Instead:
-    
+
     - We freeze the current Bloom filter (keep it as-is)
     
     - We create a new Bloom filter (usually bigger / tuned better)
@@ -154,9 +154,9 @@ For query operation (meaning to see if a username exists or not )we perform the 
     - We insert all new elements into the new one
     
     For query(element) operation, you might have to check in all instances of Bloom Filters and then take a decision accordingly.
-    
+
 - _**So how do we decide the number of bits to choose, and the number of hash functions to choose ?**_
-    
+
     There’s a lot of math involved in this one, and if you are curious to learn on how to choose the optimal k and m, you can check these 2 wonderful articles out (usually u just use those formulaes directly, no need to remember them):
     
     - [https://arpitbhayani.me/blogs/bloom-filters/](https://arpitbhayani.me/blogs/bloom-filters/)
@@ -164,13 +164,13 @@ For query operation (meaning to see if a username exists or not )we perform the 
     - [https://en.wikipedia.org/wiki/Bloom_filter#Probability_of_false_positives](https://en.wikipedia.org/wiki/Bloom_filter#Probability_of_false_positives)
     
     - [https://nyadgar.com/posts/the-beautiful-math-of-bloom-filters/](https://nyadgar.com/posts/the-beautiful-math-of-bloom-filters/)
-     
+ 
 - _**What if a username/user (the element) is deleted?**_
-    
+
     Classic Bloom filters don’t support deletes. A variant of bloom filters called the Counting bloom filters supports deletion. There are multiple variants of bloom filters, each of them has its own use case, you can always explore them..
-    
+
 - _**When should i use a bloom filter ? What patterns to identify ?**_
-    
+
     - We keep doing existence checks: “does X exist?” / “have we seen X before?”
         
     - A DB/Redis/disk lookup for “NO” is expensive or happens at high QPS
@@ -179,4 +179,4 @@ For query operation (meaning to see if a username exists or not )we perform the 
     - Use Bloom filters when we only insert data and never remove it.
         
     - Use when we specifically need to answer “NO” with 100% certainty.
-        
+
