@@ -1,4 +1,12 @@
-
+---
+categories:
+  - Engineering
+topics:
+  - distributed systems
+sources:
+  - article
+updated: 2026-07-16
+---
 
 ## How does search work ?  
 
@@ -131,13 +139,7 @@ word → [(doc_id, tf, positions, offsets), (doc_id, tf, positions, offsets), ..
     Offsets are mainly useful for highlighting matched words in search results and displaying relevant text snippets. For better viewer experience like you can see below as to how substack search does.
     
 
-[
-
-![](https://substackcdn.com/image/fetch/$s_!Iqwa!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F243eb4e8-d164-4166-9a62-05293ef2fd59_1076x1086.png)
-
-
-
-](https://substackcdn.com/image/fetch/$s_!Iqwa!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F243eb4e8-d164-4166-9a62-05293ef2fd59_1076x1086.png)
+![[substack-search-snippets.jpg]]
 
 ### Champion Lists
 
