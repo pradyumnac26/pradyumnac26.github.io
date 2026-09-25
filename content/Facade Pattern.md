@@ -12,7 +12,7 @@ Structural design pattern is a way to combine or arrange different classes and o
 
 Facade Pattern helps to hide the system complexity from the client, hence called as facade. Main idea is to expose only necessary details to the client. So client will only have one front door, and the rest of the working all happens behind the scenes. 
 
-![](https://x.com/championswimmer/status/2058988176169975879?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E2058988176169975879%7Ctwgr%5E3e95d294101c29c387905150bb31a1e8b64ad1cb%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fpublish.x.com%2F%3Furl%3Dhttps%3A%2F%2Ftwitter.com%2Fchampionswimmer%2Fstatus%2F2058988176169975879)
+![](https://x.com/championswimmer/status/2058988176169975879)
 
 
 
