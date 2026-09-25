@@ -164,6 +164,28 @@ html[saved-theme="dark"] body article .markdown-preview-view {
   }
 }
 
+// X/Twitter embed — center in the article column (default X width unchanged)
+article .markdown-preview-view {
+  p:has(.twitter-tweet-rendered),
+  p:has(blockquote.twitter-tweet),
+  p:has(blockquote.twitter) {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+  }
+
+  .twitter-tweet-rendered {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  blockquote.twitter-tweet.external-embed,
+  blockquote.twitter.external-embed {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 article {
   p,
   li {
