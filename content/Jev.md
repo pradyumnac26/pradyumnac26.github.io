@@ -31,8 +31,16 @@ Jev supports exactly three types of questions (seconds example in video):
 - Choice: Ask question with pre-defined set of answers. Jev chooses the best and assigns probabilities to each. 
 - Score: Ask question with pre-defined scale of answers. Jev produces a position on the scale. 
 
-Jev computes answers for all questions in parallel, making responses super fast even for many questions in a single request. And Jev is super cheap and fast. 
+![[jev-primitives.png]]
+
+Jev computes answers for all questions in parallel, making responses super fast even for many questions in a single request. And Jev is super cheap and fast. Jev is a transformer encoder model. 
 
 This might seem like a narrow set of capabilities, but in the right contexts leads to incredible potential. It also makes for a useful API / primitive for programming, since the outputs are type-safe and predictable in structure.
 
+But some things to note about Jev is that : 
+- Put in all the text you want, the only thing you’re going to get back is a floating point number. If Jev marks something as spam, which content signals tipped it off? 
+- [Simon Willison](https://simonwillison.net/2026/Sep/21/jev/) tried one experiment where he said he scored every city in the San Francisco Bay Area on a yes/no answer to whether they were a Good city? with Jev, and it rated [Cupertino](https://en.wikipedia.org/wiki/Cupertino,_California) top and [East Palo Alto](https://en.wikipedia.org/wiki/East_Palo_Alto,_California)bottom. Huh.)  
+- So, In practice, this all means that evals and structured experiments are even more important than they are for regular LLM projects
 
+
+![[jev-api.png]]

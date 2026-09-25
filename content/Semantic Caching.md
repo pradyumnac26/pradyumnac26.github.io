@@ -19,6 +19,9 @@ Semantic caching applies the same idea to LLM-powered applications, but with a t
 Instead of matching queries by exact string, semantic caching matches them by semantic similarity that is by _meaning_. When a new query comes in, it’s first converted into an embedding a vector representation of its meaning. That embedding is then compared against the embeddings already stored in the cache (cache key) using cosine similarity.
 
 If the similarity score passes a set threshold (typically somewhere between 0.85 and 0.95 (we will see why this range in particular late in the note)), the cache treats the new query as equivalent to a previously seen one. So during search if a sufficiently similar cached query is found, the system reuses the previously generated response instead of invoking the LLM again. It not only saved on latency, but it also saved on the token cost of an LLM call.
+![[semantic-caching.webp]]
+
+
 
 ![[semantic-cache-miss.png]]
 
