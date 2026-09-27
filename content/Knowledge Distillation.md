@@ -21,7 +21,7 @@ Ensembles worked well because training back then was noisy and sensitive to rand
 The problem back then was that a thousand-model ensemble cant fit into a device with limited storage. So the Cornell paper proposed something clever: instead of shipping the whole ensemble, train one small model to mimic the ensemble's averaged output
 
 The small model was not trained only on the original **hard labels** from the dataset, such as “spam” or “not spam.” Instead, it was trained to match the ensemble’s averaged probability output for example, 
-$$ 
+$$
 P(\text{spam}) = 0.73
 $$
 rather than simply 

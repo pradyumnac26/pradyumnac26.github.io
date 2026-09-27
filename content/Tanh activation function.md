@@ -7,8 +7,11 @@ sources:
   - article
 updated: 2026-09-27
 ---
-Tanh is hyperbolic tangent which is 
-$$\tanh(z) = \frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}$$
+Tanh is hyperbolic tangent which is
+
+$$
+\tanh(z) = \frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}
+$$
 
 ![[tanh.png]]
 
@@ -16,8 +19,11 @@ Same S-shape as sigmoid, but notice the range: -1 to 1, not 0 to 1.
 
 So it squashes number in any real range (- inf, inf) to (-1, 1) 
 
-Its derivative is : 
-$$\tanh'(z) = 1 - \tanh(z)^2$$
+Its derivative is :
+
+$$
+\tanh'(z) = 1 - \tanh(z)^2
+$$
 
 ![[tanh decay.png]]
 
@@ -41,4 +47,6 @@ As you can see from the graph below, it shows how sigmoid and tanh decays for th
 
 
 Also note that the tanh neuron is simply a rescaled and shifted sigmoid, in particular the following holds: 
-$${\tanh(x) = 2\sigma(2x) - 1}$$
+$$
+\tanh(x) = 2\sigma(2x) - 1
+$$
