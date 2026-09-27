@@ -9,7 +9,7 @@ updated: 2026-09-26
 ---
 This is a very common problem when dealing with neural networks. 
 
-When dealing with [[Sigmoid]] activation function, one of the drawbacks is that it has vanishing gradient effect. 
+When dealing with [[Sigmoid activation function]] activation function, one of the drawbacks is that it has vanishing gradient effect. 
 
 As we all know when a neural netowork learns, it works backwards (backward propagation) from output to input layer by layer. And during its backward propagation it learns the weights, parameters etc. based on the loss / gradient right. 
 

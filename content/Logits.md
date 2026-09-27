@@ -32,7 +32,7 @@ The value of the logit function heads towards infinity as _p_ approaches 1 and t
 
 It is heavily used in Logistic regression models, where the raw outputs / predictions (which are in an unconstrained range) need to be converted into probabilities. So we consider the raw output of the logistic regression model as the logit.
 
-So how do we convert this into a probability? That's where [[Sigmoid]] comes in,  it's the inverse of the logit function, and it maps that unconstrained logit back into the valid 0–1 probability range.
+So how do we convert this into a probability? That's where [[Sigmoid activation function]] comes in,  it's the inverse of the logit function, and it maps that unconstrained logit back into the valid 0–1 probability range.
 
 
 
