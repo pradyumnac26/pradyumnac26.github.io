@@ -5,7 +5,7 @@ topics:
   - ai
 sources:
   - article
-updated: 2026-09-27
+updated: 2026-09-26
 ---
 Given a probability p, which ranges from 0 to 1, the corresponding odds can also be calculated as : 
 

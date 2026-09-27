@@ -5,7 +5,7 @@ topics:
   - ai
 sources:
   - article
-updated: 2026-09-27
+updated: 2026-09-26
 ---
 The sigmoid function is basically just the inverse of [[Logits]]. 
 The sigmoid function maps arbitrary real values back to the range [0, 1]. The larger the value, the closer to 1 you’ll get. 

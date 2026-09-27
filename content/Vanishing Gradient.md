@@ -5,7 +5,7 @@ topics:
   - ai
 sources:
   - article
-updated: 2026-09-27
+updated: 2026-09-26
 ---
 This is a very common problem when dealing with neural networks. 
 
