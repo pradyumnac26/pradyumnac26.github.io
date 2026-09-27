@@ -720,3 +720,40 @@ html[saved-theme="dark"]
     0 10px 28px rgba(27, 33, 48, 0.12),
     0 4px 12px rgba(27, 33, 48, 0.08);
 }
+
+// Keep KaTeX Computer Modern fonts (don’t inherit site sans-serif). Sizing comes from
+// .katex-display — requires multiline $$ … $$ in markdown (not single-line $$…$$).
+@mixin katex-fonts {
+  letter-spacing: normal;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+
+  .mathnormal,
+  .mathit {
+    font-family: KaTeX_Math, "Latin Modern Math", "Times New Roman", serif;
+  }
+
+  .mathrm,
+  .mord.text,
+  .mord.text .mord,
+  .mop,
+  .mbin,
+  .mrel,
+  .mord:not(.mathnormal):not(.mathit) {
+    font-family: KaTeX_Main, "Latin Modern Roman", "Times New Roman", serif;
+  }
+}
+
+article .markdown-preview-view {
+  .katex {
+    @include katex-fonts;
+    color: var(--text-muted);
+    fill: var(--text-muted);
+  }
+
+  .katex-display {
+    margin: 0.85em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}

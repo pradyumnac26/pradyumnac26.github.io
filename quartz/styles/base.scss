@@ -42,7 +42,6 @@ td,
 li,
 ol,
 ul,
-.katex,
 .math,
 .typst-doc,
 g[class~="typst-text"] {
@@ -50,6 +49,12 @@ g[class~="typst-text"] {
   fill: var(--darkgray);
   overflow-wrap: break-word;
   text-wrap: pretty;
+}
+
+.katex {
+  color: var(--text-muted);
+  fill: var(--text-muted);
+  text-wrap: nowrap;
 }
 
 path[class~="typst-shape"] {
@@ -659,7 +664,9 @@ ol.overflow {
 }
 
 .katex-display {
-  display: initial;
+  display: block;
+  margin: 1em 0;
+  text-align: center;
   overflow-x: auto;
   overflow-y: hidden;
 }

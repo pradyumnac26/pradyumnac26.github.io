@@ -12,17 +12,34 @@ The sigmoid function maps arbitrary real values back to the range [0, 1]. The la
 
 From the above, we can derive:
 
-$$\text{logit}(p) = \log\left(\frac{p}{1-p}\right)$$
+$$
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right)
+$$
 
-$$e^{\text{logit}} = \frac{p}{1-p}$$
+$$
+e^{\text{logit}} = \frac{p}{1-p}
+$$
 
-$$e^{-\text{logit}} = \frac{1-p}{p}$$
-$$e^{-\text{logit}} = \frac{1}{p} - \frac{p}{p} = \frac{1}{p} - 1$$
+$$
+e^{-\text{logit}} = \frac{1-p}{p}
+$$
 
-$$\frac{1}{p} = 1 + e^{-\text{logit}}$$
-$$p = \frac{1}{1 + e^{-\text{logit}}}$$
+$$
+e^{-\text{logit}} = \frac{1}{p} - \frac{p}{p} = \frac{1}{p} - 1
+$$
 
-$$p = \sigma(\text{z}) = \sigma(\text{logit}) = \frac{1}{1+e^{-\text{logit}}} = \frac{1}{1+e^{-z}}$$
+$$
+\frac{1}{p} = 1 + e^{-\text{logit}}
+$$
+
+$$
+p = \frac{1}{1 + e^{-\text{logit}}}
+$$
+
+$$
+p = \sigma(\text{z}) = \sigma(\text{logit}) = \frac{1}{1+e^{-\text{logit}}} = \frac{1}{1+e^{-z}}
+$$
+
 where σσ is the sigmoid function.
 
 ![[sigmoid.png]]
@@ -34,5 +51,6 @@ There are other functions that map probabilities to reals (and vice-versa), so w
 The biggest drawback of the sigmoid function for many analytics practitioners is the so-called vanishing problem. 
 
 this problem pertains not only to the sigmoid function, but any function that squeezes real values to the [0, 1] range. In neural networks, this [[Vanishing Gradient]] is often a problem. So you can find some alternatives. 
+
 
 

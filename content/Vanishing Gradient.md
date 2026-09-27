@@ -16,25 +16,38 @@ As we all know when a neural netowork learns, it works backwards (backward propa
 
 **Derivative of the [[Logits]] function:**  
 
-$$\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \log(p) - \log(1-p)$$
+$$
+\text{logit}(p) = \log\left(\frac{p}{1-p}\right) = \log(p) - \log(1-p)
+$$
 
 Differentiating term by term:  
 
-$$\frac{d}{dp}\,\text{logit}(p) = \frac{1}{p} + \frac{1}{1-p} = \frac{(1-p) + p}{p(1-p)} = \frac{1}{p(1-p)}$$
+$$
+\frac{d}{dp}\,\text{logit}(p) = \frac{1}{p} + \frac{1}{1-p} = \frac{(1-p) + p}{p(1-p)} = \frac{1}{p(1-p)}
+$$
 
 **Derivative of the sigmoid function:**  
 
-$$p =\sigma(z) = \frac{1}{1+e^{-z}} \quad \Rightarrow \quad \sigma'(z) = \sigma(z)\big(1-\sigma(z)\big)$$
+$$
+p =\sigma(z) = \frac{1}{1+e^{-z}} \quad \Rightarrow \quad \sigma'(z) = \sigma(z)\big(1-\sigma(z)\big)
+$$
 Since $\sigma(z) = p$, we can write this more simply as:
 
-$$\sigma'(z) = p(1-p)$$
+$$
+\sigma'(z) = p(1-p)
+$$
+
 As, we found:  
 
-$$\frac{d}{dp}\,\text{logit}(p) = \frac{1}{p(1-p)}$$
+$$
+\frac{d}{dp}\,\text{logit}(p) = \frac{1}{p(1-p)}
+$$
 
 Compare that to what we just got:  
 
-$$\sigma'(z) = p(1-p)$$
+$$
+\sigma'(z) = p(1-p)
+$$
 
 These two are exact reciprocals of each other one is $p(1-p)$, the other is $\frac{1}{p(1-p)}$. This isn't a coincidence, and it isn't specific to logit and sigmoid, it's a general calculus rule that applies to any pair of inverse functions.
 
@@ -44,7 +57,9 @@ Now, when backprop works its way back to a weight $w$, it's not computing $\frac
 - $z$ changes → this changes $p$ (since $p = \sigma(z)$)
 - $p$ changes → this changes $L$ (since $L$ is computed from $p$)
 
-$$\frac{\partial L}{\partial w} = \underbrace{\frac{\partial L}{\partial p}}_{\text{loss w.r.t. prediction}} \cdot \underbrace{\frac{\partial p}{\partial z}}_{\text{sigmoid's derivative}} \cdot \underbrace{\frac{\partial z}{\partial w}}_{\text{= }x}$$
+$$
+\frac{\partial L}{\partial w} = \underbrace{\frac{\partial L}{\partial p}}_{\text{loss w.r.t. prediction}} \cdot \underbrace{\frac{\partial p}{\partial z}}_{\text{sigmoid's derivative}} \cdot \underbrace{\frac{\partial z}{\partial w}}_{\text{= }x}
+$$
 The middle term $\frac{\partial p}{\partial z} = p(1-p)$, the sigmoid's derivative is the one we need to look closely at, because it's the piece that misbehaves.
 
 ### Plotting it out
@@ -69,7 +84,9 @@ This curve above shows the behavior of a single neuron, at a single layer. It te
 
 As the number of layers increase,  say if there are 10 layers then : 
 
-$$0.25 \times 0.25 \times 0.25 \times 0.25 \times 0.25 \approx 0.00098$$
+$$
+0.25 \times 0.25 \times 0.25 \times 0.25 \times 0.25 \approx 0.00098
+$$
 
 
 ![[vanishing gradient.png]]
