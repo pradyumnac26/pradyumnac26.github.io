@@ -2,7 +2,7 @@
 categories:
   - Engineering
 topics:
-  - ai
+  - general
 sources:
   - article
 updated: 2025-10-15
