@@ -1,9 +1,36 @@
-body[data-slug="index"] .center > hr {
+@use "../../styles/variables.scss" as *;
+
+body[data-slug="index"] .center > hr,
+body[data-slug="index"] .page > #quartz-body > hr {
   display: none;
 }
 
 body[data-slug="index"] .page-footer {
   margin-top: 0;
+}
+
+@media all and ($mobile) {
+  // .center uses display:contents — assign explicit rows so signature sits under
+  // article (after "Enjoy your time around") and before recent notes + site footer.
+  body[data-slug="index"] .page > #quartz-body {
+    grid-template-areas:
+      "mobile-topbar mobile-topbar"
+      "grid-header grid-header"
+      "grid-center grid-center"
+      "grid-page-footer grid-page-footer"
+      "mobile-notes mobile-notes"
+      "grid-sidebar-right grid-sidebar-right"
+      "grid-footer grid-footer";
+  }
+
+  body[data-slug="index"] .page > #quartz-body > article {
+    grid-area: grid-center;
+  }
+
+  body[data-slug="index"] .page > #quartz-body > .page-footer {
+    grid-area: grid-page-footer;
+    margin-top: 0.25rem;
+  }
 }
 
 .home-signature {
