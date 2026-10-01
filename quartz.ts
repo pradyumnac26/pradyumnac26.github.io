@@ -4,8 +4,10 @@ import { componentRegistry } from "./quartz/components/registry"
 import { PageTypeDispatcher } from "./quartz/plugins/pageTypes/dispatcher"
 import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
 import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
+import HomeSignature from "./quartz/components/HomeSignature"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
+import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
 import { titleAndDateOgImage } from "./quartz/util/ogImage"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
@@ -109,16 +111,20 @@ updateRecentNotesForViewport()
 `
 
 const config = await loadQuartzConfig()
-config.plugins.transformers.push(topicGraphLinks(), sidebarNavOverrides())
+config.plugins.transformers.push(topicGraphLinks(), sidebarNavOverrides(), imageCaptions())
 config.plugins.pageTypes ??= []
 config.plugins.pageTypes.push(PostsPage(), TopicPage())
 const baseLayout = await loadQuartzLayout()
 const pixelArt = PixelArtLandscape()
+const homeSignature = HomeSignature()
 const contentBeforeBody =
   baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
+const contentAfterBody =
+  baseLayout.byPageType.content?.afterBody ?? baseLayout.defaults.afterBody ?? []
 baseLayout.byPageType.content = {
   ...baseLayout.byPageType.content,
   beforeBody: [pixelArt, ...contentBeforeBody],
+  afterBody: [...contentAfterBody, homeSignature],
 }
 const footer = baseLayout.defaults.footer?.[0]
 

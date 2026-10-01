@@ -1,0 +1,24 @@
+body[data-slug="index"] .center > hr {
+  display: none;
+}
+
+body[data-slug="index"] .page-footer {
+  margin-top: 0;
+}
+
+.home-signature {
+  margin: 0.5rem 0 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  font-size: var(--scale-base);
+}
+
+.home-signature-img {
+  display: block;
+  height: 2.35em;
+  width: auto;
+  max-width: min(100%, 11rem);
+}
