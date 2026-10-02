@@ -1,7 +1,6 @@
 @use "../../styles/variables.scss" as *;
 
-body[data-slug="index"] .center > hr,
-body[data-slug="index"] .page > #quartz-body > hr {
+body[data-slug="index"] .page > #quartz-body .center > hr {
   display: none;
 }
 
@@ -23,12 +22,8 @@ body[data-slug="index"] .page-footer {
       "grid-footer grid-footer";
   }
 
-  body[data-slug="index"] .page > #quartz-body > article {
-    grid-area: grid-center;
-  }
-
-  body[data-slug="index"] .page > #quartz-body > .page-footer {
-    grid-area: grid-page-footer;
+  body[data-slug="index"] .page > #quartz-body .center > .page-footer {
+    grid-area: grid-page-footer !important;
     margin-top: 0.25rem;
   }
 }
