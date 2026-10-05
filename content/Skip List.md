@@ -86,3 +86,14 @@ Delete 31 example :
 
 ![[delete-in-skiplist.mov]]
 
+Redis Sorted Sets uses Skip Lists. 
+
+![[redis-sortedsets.png]]
+
+But how is it different than a BST tree ? Where everything is sorted, and searching in a BST is is O(log N) unless the BST is not skewed. 
+
+The answer is that for inserts/deletes, a balanced BST may need rotations/rebalancing to preserve height.  But a skip list avoids rotations. You insert into the sorted bottom level, then probabilistically decide how many upper levels that node appears in. So there is a bit of structural complexity involved here. 
+
+Also for faster search skip lists trades extra memory. 
+
+
