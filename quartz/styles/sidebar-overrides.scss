@@ -262,7 +262,8 @@ html body .posts-index .posts-list a.posts-list-title.internal-link {
   }
 
   html body .posts-index .posts-list-date {
-    flex: 0 0 auto !important;
+    flex: 0 0 6rem !important;
+    font-variant-numeric: tabular-nums;
   }
 
   html body .posts-index .posts-list-title {

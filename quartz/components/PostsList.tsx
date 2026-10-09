@@ -315,7 +315,8 @@ PostsList.css = `
   }
 
   .posts-list-date {
-    flex: 0 0 auto;
+    flex: 0 0 6rem;
+    font-variant-numeric: tabular-nums;
     text-align: left;
     white-space: nowrap;
   }
