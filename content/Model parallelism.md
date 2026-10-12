@@ -24,3 +24,9 @@ There are 2 main ways the models can be distributed :
 - split individual layers themselves across GPUs (**tensor parallelism**) meaning instead of dividing the neural network by layer (horizontally), you divide the tensors themselves (vertically). E.g., GPU-1 has half the weight matrix of _one_ layer, GPU-2 has the other half of the same layer, both GPUs work on the same layer simultaneously, each computing a slice of the weight matrix. 
 
 Note Model Parallelism doesn't imply that the training happens in parallel!
+
+
+Best use cases : 
+
+- **Tensor parallelism** works best for GPUs with high-speed interconnects, making it ideal for splitting large matrix operations across GPUs within the same node where frequent communication won't become a bottleneck.
+- **Pipeline parallelism** provides an efficient way to split model layers across nodes, minimizing cross-node communication by only needing to pass activations between sequential stages.
