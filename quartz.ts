@@ -8,7 +8,7 @@ import HomeSignature from "./quartz/components/HomeSignature"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
-import { titleAndDateOgImage } from "./quartz/util/ogImage"
+import { siteOgImage } from "./quartz/util/ogImage"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
   showTags: false,
@@ -130,8 +130,7 @@ const footer = baseLayout.defaults.footer?.[0]
 
 if (footer) {
   const existing = footer.afterDOMLoaded
-  footer.afterDOMLoaded =
-    (typeof existing === "string" ? existing : "") + notesMoreLabelScript
+  footer.afterDOMLoaded = (typeof existing === "string" ? existing : "") + notesMoreLabelScript
 }
 
 config.plugins.emitters = config.plugins.emitters.filter(
@@ -143,7 +142,7 @@ config.plugins.emitters.push(
     width: 1200,
     height: 630,
     excludeRoot: false,
-    imageStructure: titleAndDateOgImage,
+    imageStructure: siteOgImage,
   }),
   PageTypeDispatcher({
     defaults: baseLayout.defaults,
