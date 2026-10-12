@@ -162,6 +162,19 @@ html[saved-theme="dark"] body article .markdown-preview-view {
     margin-top: 1rem;
     margin-bottom: 0.5rem;
   }
+
+  blockquote:not(.callout, .twitter-tweet, .twitter) {
+    margin: 1.25rem 0;
+    padding: 0.15rem 0 0.15rem 1rem;
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 // X/Twitter embed — center in the article column (default X width unchanged)
@@ -286,6 +299,27 @@ html[saved-theme="dark"] body .sidebar.right button.toc-header h3 {
   }
 }
 
+// The right sidebar is sticky at viewport height, so a long TOC has to scroll inside it.
+@media all and ($desktop) {
+  html[saved-theme="light"] body .sidebar.right,
+  html[saved-theme="dark"] body .sidebar.right {
+    .toc:not(:has(button.toc-header.collapsed)) {
+      flex: 0 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .toc ul.toc-content:not(.collapsed) {
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
 button.toc-header {
   @include use-font;
   width: 100%;
@@ -324,6 +358,9 @@ html[saved-theme="dark"] body .sidebar.right ul.toc-content {
 
   li > a {
     @include sidebar-link;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
 
     &.in-view {
       font-weight: 400;

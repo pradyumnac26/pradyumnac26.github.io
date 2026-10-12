@@ -240,7 +240,7 @@ plugins:
   - source: "@quartz-community/reader-mode"
     enabled: false
   - source: "@quartz-community/breadcrumbs"
-    enabled: true
+    enabled: false
     layout:
       position: beforeBody
       priority: 5

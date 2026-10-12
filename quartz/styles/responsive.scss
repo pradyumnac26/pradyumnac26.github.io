@@ -62,10 +62,23 @@ $mobile-nav-gap: 0.35rem;
     grid-template-areas:
       "mobile-topbar mobile-topbar"
       "grid-header grid-header"
+      "mobile-toc mobile-toc"
       "grid-center grid-center"
+      "mobile-hr mobile-hr"
+      "mobile-page-footer mobile-page-footer"
       "mobile-notes mobile-notes"
+      "mobile-backlinks mobile-backlinks"
       "grid-sidebar-right grid-sidebar-right"
       "grid-footer grid-footer";
+  }
+
+  // Explicit areas so nothing auto-places into the TOC row on pages without one.
+  .page > #quartz-body .center > hr {
+    grid-area: mobile-hr;
+  }
+
+  .page > #quartz-body .center > .page-footer {
+    grid-area: mobile-page-footer;
   }
 
   .page > #quartz-body .center {
@@ -293,6 +306,11 @@ $mobile-nav-gap: 0.35rem;
     margin-bottom: 0.35rem;
   }
 
+  html[saved-theme="light"] body .page-header h1.article-title,
+  html[saved-theme="dark"] body .page-header h1.article-title {
+    margin-top: 1.5rem;
+  }
+
   html[saved-theme="light"] body article .markdown-preview-view,
   html[saved-theme="dark"] body article .markdown-preview-view {
     h1,
@@ -319,24 +337,65 @@ $mobile-nav-gap: 0.35rem;
     font-size: 0.8rem;
   }
 
+  // The Obsidian theme pads both pre and code by 16px on the left.
+  figure[data-rehype-pretty-code-figure] > pre {
+    padding-left: 0.5rem !important;
+
+    & > code {
+      padding-left: 0 !important;
+    }
+  }
+
+  pre > code > [data-line]::before {
+    width: 2ch;
+    margin-right: 0.75rem;
+  }
+
+  // Children join the page grid so the TOC can sit above the article.
   .page > #quartz-body .sidebar.right {
-    flex-direction: column;
-    gap: 1.25rem;
-    margin: 0.25rem 0 0;
-    padding: 0;
+    display: contents;
 
     > * {
+      grid-column: 1 / -1;
       flex: 1 1 auto;
       max-height: none;
       width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     > .backlinks {
-      order: 1;
+      grid-area: mobile-backlinks;
+      margin-top: 1.25rem;
     }
 
     > .graph {
-      order: 2;
+      grid-area: grid-sidebar-right;
+      margin-top: 1.25rem;
+    }
+
+    > .toc {
+      grid-area: mobile-toc;
+      display: flex;
+      flex-direction: column;
+      margin: 0.5rem 0 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid color-mix(in srgb, var(--gray) 28%, transparent);
+      border-radius: 8px;
+    }
+
+    > .toc ul.toc-content:not(.collapsed) {
+      max-height: 16rem;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    > .toc button.toc-header h3 {
+      font-size: 1rem;
+    }
+
+    > .toc ul.toc-content li > a {
+      font-size: 0.875rem;
     }
   }
 
