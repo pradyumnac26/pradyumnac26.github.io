@@ -10,7 +10,7 @@ $font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courie
 $scale-sm: 14px;
 $scale-base: 15px;
 $scale-xl: 21px;
-$note-title-size: 26.87px;
+$note-title-size: 20px;
 
 :root {
   --font: #{$font};
@@ -78,14 +78,14 @@ html[saved-theme="dark"] body .explorer-toggle > h2 {
   font-weight: 400;
 }
 
-// Note page title — 26.87px / 400
+// Note page title — 20px / 400
 html[saved-theme="light"] body h1.article-title,
 html[saved-theme="dark"] body h1.article-title {
   @include use-font;
   font-size: $note-title-size;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
   margin: 0.25rem 0 0.5rem;
 }
 
@@ -107,12 +107,106 @@ html[saved-theme="dark"] body h1.article-title {
   line-height: 1.4;
 }
 
-// In-article body text — use muted gray for paragraphs and list items
+// In-article body text
+$ink-light: #292824;
+$ink-dark: #deddd8;
+
 html[saved-theme="light"] body article .markdown-preview-view p,
 html[saved-theme="dark"] body article .markdown-preview-view p,
 html[saved-theme="light"] body article .markdown-preview-view li,
 html[saved-theme="dark"] body article .markdown-preview-view li {
-  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+html[saved-theme="light"] body article .markdown-preview-view p,
+html[saved-theme="dark"] body article .markdown-preview-view p {
+  margin-block: 1.7em;
+}
+
+// A paragraph that introduces a list ("Explore:") sits close to it
+html[saved-theme="light"] body article .markdown-preview-view p:has(+ ul, + ol),
+html[saved-theme="dark"] body article .markdown-preview-view p:has(+ ul, + ol) {
+  margin-bottom: 0.4em;
+}
+
+html[saved-theme="light"] body article .markdown-preview-view p + :is(ul, ol),
+html[saved-theme="dark"] body article .markdown-preview-view p + :is(ul, ol) {
+  margin-top: 0.4em;
+}
+
+html[saved-theme="light"] body article .markdown-preview-view p,
+html[saved-theme="light"] body article .markdown-preview-view li {
+  color: $ink-light;
+}
+
+html[saved-theme="dark"] body article .markdown-preview-view p,
+html[saved-theme="dark"] body article .markdown-preview-view li {
+  color: $ink-dark;
+}
+
+// Dividers — single hairline (theme adds a 2px border on top of Quartz's 1px rule)
+html[saved-theme="light"] body hr,
+html[saved-theme="dark"] body hr {
+  border: none;
+  height: 1px;
+  background-color: color-mix(in srgb, var(--dark) 16%, transparent);
+}
+
+// In-article links — body-colored text with a thin accent underline.
+// Obsidian theme repoints --secondary to purple, so the accent is pinned here.
+html[saved-theme="light"] body article .markdown-preview-view {
+  --link-accent: #3b6a8f;
+}
+
+html[saved-theme="dark"] body article .markdown-preview-view {
+  --link-accent: #8fb0c6;
+}
+
+html[saved-theme="light"] body article .markdown-preview-view,
+html[saved-theme="dark"] body article .markdown-preview-view {
+  a.internal:not([role="anchor"]):not(:has(> img)),
+  a.internal-link:not([role="anchor"]):not(:has(> img)),
+  a.external,
+  a.external-link {
+    color: var(--link-accent);
+    font-weight: inherit;
+    background: none;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    line-height: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    text-decoration-skip-ink: auto;
+    text-decoration-color: color-mix(in srgb, var(--link-accent) 40%, transparent);
+    transition: text-decoration-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--link-accent);
+      background: none;
+      text-decoration-color: var(--link-accent);
+    }
+  }
+
+  a.external,
+  a.external-link {
+    .external-icon {
+      display: none;
+    }
+
+    &::after {
+      content: "↗";
+      display: inline-block;
+      margin-left: 0.15em;
+      font-size: 0.8em;
+      color: color-mix(in srgb, var(--dark) 45%, transparent);
+      text-decoration: none;
+    }
+  }
 }
 
 // In-article headings — higher specificity than Obsidian theme `html body h2` rules
@@ -137,30 +231,24 @@ html[saved-theme="dark"] body article .markdown-preview-view {
     }
   }
 
-  h1 {
-    font-size: var(--scale-xl);
-    margin-top: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
+  h1,
   h2 {
-    font-size: var(--scale-xl);
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  h3 {
-    font-size: var(--scale-base);
-    margin-top: 1.25rem;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-top: 2.25rem;
     margin-bottom: 0.5rem;
   }
 
+  h3,
   h4,
   h5,
   h6 {
-    font-size: var(--scale-base);
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    margin-top: 1.75rem;
+    margin-bottom: 0.25rem;
   }
 
   blockquote:not(.callout, .twitter-tweet, .twitter) {
@@ -245,15 +333,15 @@ textarea,
   @include use-font;
 }
 
-// Right sidebar section titles — match "My Personal Wiki" nav title
+// Right sidebar section titles — body-sized, slightly bolder (matches in-note h3)
 @mixin sidebar-section-title {
   @include use-font;
-  font-size: var(--scale-xl);
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--dark);
   margin: 0;
   letter-spacing: normal;
-  line-height: 1.4;
+  line-height: 1.7;
 }
 
 // Sidebar section titles — beat Obsidian theme body h3 rules
@@ -264,6 +352,13 @@ html[saved-theme="dark"] body .sidebar.right .backlinks > h3,
 html[saved-theme="light"] body .sidebar.right button.toc-header h3,
 html[saved-theme="dark"] body .sidebar.right button.toc-header h3 {
   @include sidebar-section-title;
+}
+
+html[saved-theme="light"] body .sidebar.right button.toc-header svg,
+html[saved-theme="dark"] body .sidebar.right button.toc-header svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.45;
 }
 
 .page-header .breadcrumb-container {
@@ -325,21 +420,23 @@ button.toc-header {
   width: 100%;
 }
 
-@mixin sidebar-link($size: var(--scale-base)) {
+@mixin sidebar-link($size: 13px) {
   @include use-font;
   font-size: $size;
   font-weight: 400;
-  color: var(--gray);
-  opacity: 0.65;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  opacity: 1;
   text-decoration: none;
-  border-radius: 4px;
-  padding: 0.125rem 0.25rem;
-  transition: color 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  transition: color 0.2s ease;
 
   &:hover,
   &:focus {
-    color: var(--darkgray);
-    opacity: 0.85;
+    color: var(--dark);
+    opacity: 1;
   }
 }
 
@@ -354,19 +451,43 @@ html[saved-theme="dark"] body .sidebar.right ul.toc-content {
     display: block;
     max-height: none;
     overflow-y: visible;
+    margin-top: 0.5rem;
+  }
+
+  li {
+    margin: 0;
   }
 
   li > a {
-    @include sidebar-link;
+    @include use-font;
     display: inline-block;
     max-width: 100%;
     box-sizing: border-box;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--dark) 55%, transparent);
+    opacity: 1;
+    text-decoration: none;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    transition: color 0.2s ease;
 
     &.in-view {
       font-weight: 400;
+      color: color-mix(in srgb, var(--dark) 55%, transparent);
+      opacity: 1;
+      background: none;
+    }
+
+    &:hover,
+    &:focus,
+    &.toc-active {
+      font-weight: 400;
       color: var(--dark);
       opacity: 1;
-      background-color: color-mix(in srgb, var(--secondary) 12%, transparent);
+      background: none;
     }
   }
 }
@@ -398,12 +519,12 @@ html[saved-theme="dark"] body .posts-index {
 
   .posts-list .posts-list-title.internal,
   .posts-list a.posts-list-title.internal-link {
-    color: var(--darkgray);
+    color: var(--dark);
     font-weight: 400;
 
     &:link,
     &:visited {
-      color: var(--darkgray);
+      color: var(--dark);
     }
 
     &:hover,
@@ -451,11 +572,10 @@ html[saved-theme="dark"] body .backlinks > ul.overflow > li.overflow-end {
 html[saved-theme="light"] body .backlinks > ul.overflow > li:not(.overflow-end),
 html[saved-theme="dark"] body .backlinks > ul.overflow > li:not(.overflow-end) {
   display: list-item;
-  color: var(--gray);
+  color: color-mix(in srgb, var(--dark) 35%, transparent);
 
   &::marker {
-    color: var(--gray);
-    opacity: 0.65;
+    color: color-mix(in srgb, var(--dark) 35%, transparent);
   }
 }
 
@@ -465,8 +585,8 @@ html[saved-theme="dark"] body .backlinks > ul.overflow > li > a {
 }
 
 // Unified page background (Obsidian theme plugin overrides quartz.config.yaml)
-$bg-light: #fffcf0;
-$bg-dark: #100f0f;
+$bg-light: #fcfaf5;
+$bg-dark: #121213;
 
 @mixin surface-vars($bg) {
   --light: #{$bg};
@@ -488,8 +608,8 @@ $bg-dark: #100f0f;
 :root,
 :root[saved-theme="light"] {
   @include surface-vars($bg-light);
-  --lightgray: #e5e0d4;
-  --light: #f3ede0;
+  --lightgray: #e6e3dc;
+  --light: #f3f0e9;
 }
 
 :root[saved-theme="dark"] {

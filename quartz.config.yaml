@@ -21,7 +21,7 @@ configuration:
       code: SF Mono
     colors:
       lightMode:
-        light: "#FFFCF0"
+        light: "#FCFAF5"
         lightgray: "#e5e5e5"
         gray: "#b8b8b8"
         darkgray: "#4e4e4e"
@@ -31,7 +31,7 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#fff23688"
       darkMode:
-        light: "#100F0F"
+        light: "#121213"
         lightgray: "#393639"
         gray: "#646464"
         darkgray: "#d4d4d4"
@@ -79,6 +79,8 @@ plugins:
     order: 40
   - source: "@quartz-community/table-of-contents"
     enabled: true
+    options:
+      collapseByDefault: true
     order: 50
     layout:
       position: right

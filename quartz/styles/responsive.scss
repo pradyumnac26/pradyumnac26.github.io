@@ -2,8 +2,10 @@
 
 $mobile-gutter: 1.5rem;
 $tablet-gutter: 1.5rem;
-$mobile-nav-vpad: 0.75rem;
+$mobile-nav-pad-top: 28px;
+$mobile-nav-pad-bottom: 16px;
 $mobile-nav-gap: 0.35rem;
+$mobile-nav-icon-box: 24px;
 
 // ---------------------------------------------------------------------------
 // Tablet (iPad portrait/landscape, ~801px–1200px)
@@ -38,11 +40,6 @@ $mobile-nav-gap: 0.35rem;
 
   .sidebar.right .graph > .graph-outer {
     height: 220px;
-  }
-
-  html[saved-theme="light"] body h1.article-title,
-  html[saved-theme="dark"] body h1.article-title {
-    font-size: 1.65rem;
   }
 }
 
@@ -81,6 +78,10 @@ $mobile-nav-gap: 0.35rem;
     grid-area: mobile-page-footer;
   }
 
+  .page > #quartz-body .center > .page-footer:not(:has(*)) {
+    display: none;
+  }
+
   .page > #quartz-body .center {
     display: contents;
   }
@@ -93,7 +94,7 @@ $mobile-nav-gap: 0.35rem;
     display: none;
   }
 
-  // Top bar: name (col 1) | theme + search (col 2, search rightmost)
+  // Top bar: name (col 1) | search + theme (col 2, theme rightmost)
   html[saved-theme="light"] body .page-title,
   html[saved-theme="dark"] body .page-title,
   html[saved-theme="light"] body h2.page-title,
@@ -105,10 +106,10 @@ $mobile-nav-gap: 0.35rem;
     display: block;
     min-width: 0;
     max-width: 100%;
-    font-size: 0.95rem;
-    line-height: 1.3;
+    font-size: 16px;
+    line-height: 1.6;
     margin: 0;
-    padding: $mobile-nav-vpad 0.75rem ($mobile-nav-vpad + 0.15rem) 0;
+    padding: $mobile-nav-pad-top 0.75rem $mobile-nav-pad-bottom 0;
 
     a {
       display: block;
@@ -129,22 +130,21 @@ $mobile-nav-gap: 0.35rem;
     flex-wrap: nowrap;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.5rem;
-    padding: $mobile-nav-vpad 0 ($mobile-nav-vpad + 0.15rem);
-    min-height: calc(#{$mobile-nav-vpad * 2} + 2.25rem);
+    gap: 22px;
+    padding: $mobile-nav-pad-top 0 $mobile-nav-pad-bottom;
     min-width: 0;
 
-    // DOM order: search, darkmode → display: [theme] [search]
+    // DOM order: search, darkmode → display: [search] [theme]
     > div:first-child {
       flex: 0 0 auto !important;
       flex-grow: 0 !important;
       flex-shrink: 0 !important;
-      order: 2;
+      order: 1;
     }
 
     > div:nth-child(2) {
       flex: 0 0 auto !important;
-      order: 1;
+      order: 2;
     }
   }
 
@@ -163,7 +163,7 @@ $mobile-nav-gap: 0.35rem;
     width: 100%;
     margin-top: 0.25rem;
     padding-top: 1rem;
-    border-top: 1px solid color-mix(in srgb, var(--gray) 28%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--dark) 16%, transparent);
   }
 
   // Fallback before JS runs — only 2 recent notes on mobile homepage
@@ -171,17 +171,13 @@ $mobile-nav-gap: 0.35rem;
     display: none;
   }
 
-  // Homepage mobile — date and title on one line
+  // Homepage mobile — title with the date underneath
   body[data-slug="index"] .page > #quartz-body .sidebar.left .recent-notes > ul.recent-ul > li .section {
-    display: grid;
-    grid-template-columns: 6rem minmax(0, 1fr);
-    align-items: baseline;
-    column-gap: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 
   body[data-slug="index"] .page > #quartz-body .sidebar.left .recent-notes > ul.recent-ul > li .section > .desc {
-    grid-column: 2;
-    grid-row: 1;
     min-width: 0;
   }
 
@@ -190,11 +186,8 @@ $mobile-nav-gap: 0.35rem;
   }
 
   body[data-slug="index"] .page > #quartz-body .sidebar.left .recent-notes > ul.recent-ul > li .section > .meta {
-    grid-column: 1;
-    grid-row: 1;
     margin: 0 !important;
     white-space: nowrap;
-    font-variant-numeric: tabular-nums;
   }
 
   .page > #quartz-body > .page-header {
@@ -224,20 +217,23 @@ $mobile-nav-gap: 0.35rem;
 
   .sidebar.left .search {
     min-width: 0;
-    max-width: 2.25rem;
+    max-width: $mobile-nav-icon-box;
     flex: 0 0 auto;
   }
 
   .sidebar.left .search > .search-button {
-    width: 2.25rem;
-    height: 2.25rem;
-    min-height: 2.25rem;
+    width: $mobile-nav-icon-box;
+    height: $mobile-nav-icon-box;
+    min-height: $mobile-nav-icon-box;
     padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    border-radius: 8px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: none;
+    background: color-mix(in srgb, var(--dark) 10%, transparent);
 
     > p {
       display: none;
@@ -245,29 +241,29 @@ $mobile-nav-gap: 0.35rem;
 
     svg {
       margin: 0;
-      width: 1.1rem;
-      height: 1.1rem;
-      min-width: 1.1rem;
+      width: 13px;
+      height: 13px;
+      min-width: 13px;
       flex-shrink: 0;
     }
   }
 
   .sidebar.left .darkmode {
-    width: 2.25rem;
-    height: 2.25rem;
-    min-width: 2.25rem;
-    min-height: 2.25rem;
+    width: $mobile-nav-icon-box;
+    height: $mobile-nav-icon-box;
+    min-width: $mobile-nav-icon-box;
+    min-height: $mobile-nav-icon-box;
     flex-shrink: 0;
     padding: 0;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    border: 1px solid color-mix(in srgb, var(--gray) 35%, transparent);
-    border-radius: 8px;
+    border: none;
+    border-radius: 4px;
     background: var(--darkgray);
     cursor: pointer;
-    -webkit-mask-size: 1.1rem 1.1rem;
-    mask-size: 1.1rem 1.1rem;
+    -webkit-mask-size: 15px 15px;
+    mask-size: 15px 15px;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;
@@ -299,38 +295,9 @@ $mobile-nav-gap: 0.35rem;
     width: 100%;
   }
 
-  html[saved-theme="light"] body h1.article-title,
-  html[saved-theme="dark"] body h1.article-title {
-    font-size: 1.45rem;
-    line-height: 1.25;
-    margin-bottom: 0.35rem;
-  }
-
   html[saved-theme="light"] body .page-header h1.article-title,
   html[saved-theme="dark"] body .page-header h1.article-title {
     margin-top: 1.5rem;
-  }
-
-  html[saved-theme="light"] body article .markdown-preview-view,
-  html[saved-theme="dark"] body article .markdown-preview-view {
-    h1,
-    h2 {
-      font-size: 1.05rem;
-    }
-
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-size: var(--scale-base);
-    }
-  }
-
-  article {
-    p,
-    li {
-      line-height: 1.55;
-    }
   }
 
   pre {
@@ -366,7 +333,7 @@ $mobile-nav-gap: 0.35rem;
 
     > .backlinks {
       grid-area: mobile-backlinks;
-      margin-top: 1.25rem;
+      margin-top: 0;
     }
 
     > .graph {
@@ -378,24 +345,16 @@ $mobile-nav-gap: 0.35rem;
       grid-area: mobile-toc;
       display: flex;
       flex-direction: column;
-      margin: 0.5rem 0 0.75rem;
-      padding: 0.75rem 1rem;
-      border: 1px solid color-mix(in srgb, var(--gray) 28%, transparent);
-      border-radius: 8px;
+      margin: 0.75rem 0 0.5rem;
+      padding: 0;
+      border: none;
+      border-radius: 0;
     }
 
     > .toc ul.toc-content:not(.collapsed) {
       max-height: 16rem;
       overflow-y: auto;
       overscroll-behavior: contain;
-    }
-
-    > .toc button.toc-header h3 {
-      font-size: 1rem;
-    }
-
-    > .toc ul.toc-content li > a {
-      font-size: 0.875rem;
     }
   }
 
@@ -426,19 +385,6 @@ $mobile-nav-gap: 0.35rem;
       gap: 0.5rem 1rem;
       margin-top: 0.35rem;
     }
-  }
-
-  .posts-list-item {
-    grid-template-columns: 6rem minmax(0, 1fr);
-    align-items: baseline;
-    column-gap: 1rem;
-    row-gap: 0;
-    margin-bottom: 1rem;
-  }
-
-  .posts-list-date {
-    text-align: left;
-    white-space: nowrap;
   }
 
   .posts-list-topics {

@@ -5,6 +5,7 @@ import { PageTypeDispatcher } from "./quartz/plugins/pageTypes/dispatcher"
 import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
 import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
 import HomeSignature from "./quartz/components/HomeSignature"
+import TocActiveSection from "./quartz/components/TocActiveSection"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
@@ -30,14 +31,24 @@ function readMoreLabel(count) {
   return "Read " + count + " more " + label + " →"
 }
 
+// The plugin's "See N more" count is only trustworthy before this script rewrites the
+// label, so it is captured once on the link and reused on every later run.
+function getPluginExtraCount(link) {
+  if (!link) return 0
+  const pluginMatch = link.textContent?.match(/^\\s*See (\\d+) more/)
+  if (pluginMatch) {
+    link.dataset.pluginExtra = pluginMatch[1]
+  } else if (link.dataset.pluginExtra === undefined) {
+    link.dataset.pluginExtra = "0"
+  }
+  return parseInt(link.dataset.pluginExtra, 10)
+}
+
 function getRecentNotesTotal(sidebar, items, link) {
   if (sidebar.dataset.totalNotes) {
     return parseInt(sidebar.dataset.totalNotes, 10)
   }
-  const listed = items.length
-  const match = link?.textContent?.match(/(\\d+) more/)
-  const extra = match ? parseInt(match[1], 10) : 0
-  const total = listed + extra
+  const total = items.length + getPluginExtraCount(link)
   sidebar.dataset.totalNotes = String(total)
   return total
 }
@@ -52,6 +63,7 @@ function ensureRecentNotesLink(sidebar, remaining) {
     const p = document.createElement("p")
     link = document.createElement("a")
     link.href = postsMoreHref()
+    link.dataset.pluginExtra = "0"
     p.appendChild(link)
     sidebar.appendChild(p)
   }
@@ -117,13 +129,14 @@ config.plugins.pageTypes.push(PostsPage(), TopicPage())
 const baseLayout = await loadQuartzLayout()
 const pixelArt = PixelArtLandscape()
 const homeSignature = HomeSignature()
+const tocActiveSection = TocActiveSection()
 const contentBeforeBody =
   baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
 const contentAfterBody =
   baseLayout.byPageType.content?.afterBody ?? baseLayout.defaults.afterBody ?? []
 baseLayout.byPageType.content = {
   ...baseLayout.byPageType.content,
-  beforeBody: [pixelArt, ...contentBeforeBody],
+  beforeBody: [tocActiveSection, pixelArt, ...contentBeforeBody],
   afterBody: [...contentAfterBody, homeSignature],
 }
 const footer = baseLayout.defaults.footer?.[0]

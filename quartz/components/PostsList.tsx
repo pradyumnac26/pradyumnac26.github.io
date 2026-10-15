@@ -1,7 +1,7 @@
 import { GlobalConfiguration } from "../cfg"
 import { FullSlug, joinSegments, resolveRelative, simplifySlug } from "../util/path"
 import { QuartzPluginData } from "../plugins/vfile"
-import { Date, getDate } from "./Date"
+import { getDate } from "./Date"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { QuartzPageTypePluginInstance } from "../plugins/types"
 
@@ -78,6 +78,28 @@ function noteCountLabel(count: number): string {
   return `${count} ${count === 1 ? "note" : "notes"}`
 }
 
+function formatMonthDay(d: Date, locale: GlobalConfiguration["locale"] = "en-US"): string {
+  return d.toLocaleDateString(locale, { month: "long", day: "numeric" })
+}
+
+function groupByYear(
+  pages: QuartzPluginData[],
+  cfg: GlobalConfiguration,
+): { year: string; pages: QuartzPluginData[] }[] {
+  const groups: { year: string; pages: QuartzPluginData[] }[] = []
+  for (const page of pages) {
+    const date = safeGetDate(page, cfg)
+    const year = date ? String(date.getFullYear()) : "—"
+    const last = groups[groups.length - 1]
+    if (last && last.year === year) {
+      last.pages.push(page)
+    } else {
+      groups.push({ year, pages: [page] })
+    }
+  }
+  return groups
+}
+
 function collectTopics(pages: QuartzPluginData[]): string[] {
   const topics = new Set<string>()
   for (const page of pages) {
@@ -124,37 +146,48 @@ function NoteIndexList({
       ) : null}
       <p class="posts-list-count">{countLabel ?? noteCountLabel(pages.length)}</p>
       <ul class="posts-list">
-        {pages.map((page) => {
-          const title = page.frontmatter?.title ?? "Untitled"
-          const topics = getTopics(page)
-          const date = safeGetDate(page, cfg)
+        {groupByYear(pages, cfg).map((group) => (
+          <li class="posts-year-group">
+            <span class="posts-year">{group.year}</span>
+            <ul class="posts-year-items">
+              {group.pages.map((page) => {
+                const title = page.frontmatter?.title ?? "Untitled"
+                const topics = getTopics(page)
+                const date = safeGetDate(page, cfg)
 
-          return (
-            <li class="posts-list-item">
-              <span class="posts-list-date">
-                {date ? <Date date={date} locale={locale} /> : "—"}
-              </span>
-              <a
-                href={resolveRelative(fileData.slug!, page.slug!)}
-                class="internal posts-list-title"
-              >
-                {title}
-              </a>
-              {showTopics && topics.length > 0 ? (
-                <span class="posts-list-topics">
-                  {topics.map((topic) => (
-                    <a
-                      class="posts-list-topic"
-                      href={resolveRelative(fileData.slug!, topicSlug(topic))}
-                    >
-                      #{topic.replace(/\s+/g, "-")}
-                    </a>
-                  ))}
-                </span>
-              ) : null}
-            </li>
-          )
-        })}
+                return (
+                  <li class="posts-list-item">
+                    <div class="posts-list-main">
+                      <a
+                        href={resolveRelative(fileData.slug!, page.slug!)}
+                        class="internal posts-list-title"
+                      >
+                        {title}
+                      </a>
+                      {date ? (
+                        <time class="posts-list-date" datetime={date.toISOString()}>
+                          {formatMonthDay(date, locale)}
+                        </time>
+                      ) : null}
+                    </div>
+                    {showTopics && topics.length > 0 ? (
+                      <span class="posts-list-topics">
+                        {topics.map((topic) => (
+                          <a
+                            class="posts-list-topic"
+                            href={resolveRelative(fileData.slug!, topicSlug(topic))}
+                          >
+                            #{topic.replace(/\s+/g, "-")}
+                          </a>
+                        ))}
+                      </span>
+                    ) : null}
+                  </li>
+                )
+              })}
+            </ul>
+          </li>
+        ))}
       </ul>
     </div>
   )
@@ -218,40 +251,71 @@ PostsList.css = `
   margin: 1.75rem 0 0;
   display: flex;
   flex-direction: column;
+  gap: 40px;
+}
+
+.posts-year-group {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.posts-year {
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.posts-year-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .posts-list-item {
   display: grid;
-  grid-template-columns: 6.75rem minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
-  column-gap: 2.5rem;
+  column-gap: 1.5rem;
   padding: 0;
-  margin: 0 0 1.25rem;
+  margin: 0;
+}
 
-  &:last-child {
-    margin-bottom: 0;
-  }
+.posts-list-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
 }
 
 .posts-list-date {
-  color: var(--gray);
-  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 11px;
   font-weight: 400;
   font-style: normal;
-  text-align: right;
+  line-height: 1.7;
   white-space: nowrap;
 }
 
 .posts-list .posts-list-title.internal {
-  color: var(--darkgray);
+  color: var(--dark);
+  font-size: 14px;
   font-weight: 400;
   min-width: 0;
+  line-height: 1.7;
   text-decoration: none;
   background: none;
   background-color: transparent;
   padding: 0;
   border-radius: 0;
-  line-height: inherit;
 
   &:hover,
   &:focus {
@@ -288,42 +352,18 @@ PostsList.css = `
 
 @media (max-width: 1024px) {
   .posts-list-item {
-    grid-template-columns: 5.5rem minmax(0, 1fr);
-    column-gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 0.35rem;
   }
 
   .posts-list-topics {
-    grid-column: 1 / -1;
     justify-content: flex-start;
-    margin-top: 0.15rem;
   }
 }
 
 @media (max-width: 800px) {
   .posts-index-topics {
     display: block;
-  }
-
-  .posts-list-item {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 0 1rem;
-    width: 100%;
-    margin-bottom: 1.15rem;
-  }
-
-  .posts-list-date {
-    flex: 0 0 6rem;
-    font-variant-numeric: tabular-nums;
-    text-align: left;
-    white-space: nowrap;
-  }
-
-  .posts-list .posts-list-title.internal {
-    flex: 1 1 auto;
-    min-width: 0;
   }
 
   .posts-list-topics {
