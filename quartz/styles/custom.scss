@@ -511,6 +511,16 @@ html[saved-theme="dark"] body .posts-index {
     font-style: normal;
   }
 
+  p.posts-index-topics-label {
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  p.posts-index-topics-list,
+  p.posts-list-count {
+    color: color-mix(in srgb, var(--dark) 55%, transparent);
+  }
+
   .posts-index-topic,
   .posts-index-topics-list a,
   .posts-list-topic {

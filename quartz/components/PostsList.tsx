@@ -177,7 +177,7 @@ function NoteIndexList({
                             class="posts-list-topic"
                             href={resolveRelative(fileData.slug!, topicSlug(topic))}
                           >
-                            #{topic.replace(/\s+/g, "-")}
+                            {topic}
                           </a>
                         ))}
                       </span>
@@ -212,36 +212,43 @@ PostsList.css = `
 }
 
 .posts-index-topics-label {
-  margin: 0 0 0.35rem;
-  color: var(--gray);
-  font-size: 0.875rem;
-  font-weight: 400;
+  margin: 0;
+  color: var(--dark);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
 }
 
 .posts-index-topics-list {
   margin: 0;
-  color: var(--darkgray);
-  font-size: 0.9375rem;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 13px;
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.7;
 }
 
 .posts-index-topic {
-  color: var(--darkgray);
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
   font-weight: 400;
   text-decoration: underline;
-  text-underline-offset: 0.12em;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: color-mix(in srgb, var(--dark) 20%, transparent);
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
 
   &:hover,
   &:focus {
     color: var(--dark);
+    text-decoration-color: var(--dark);
   }
 }
 
 .posts-list-count {
   margin: 0.35rem 0 0;
-  color: var(--gray);
-  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -330,23 +337,25 @@ PostsList.css = `
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 0.4rem;
+  gap: 0 0.75rem;
 }
 
 .posts-list-topic {
-  color: var(--secondary);
-  font-size: 0.8125rem;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 12px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.7;
   text-decoration: none;
   white-space: nowrap;
-  padding: 0.15rem 0.5rem;
-  border-radius: 3px;
-  background: color-mix(in srgb, var(--secondary) 14%, transparent);
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  transition: color 0.2s ease;
 
   &:hover,
   &:focus {
-    background: color-mix(in srgb, var(--secondary) 22%, transparent);
+    color: var(--dark);
+    background: none;
   }
 }
 
