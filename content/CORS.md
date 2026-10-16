@@ -15,10 +15,10 @@ First lets understand what is SOP ?
 
 Same Origin Policy is a web security mechanism built into web browsers that influences how one website can access another.
 
-Without SOP, another malicious website or web application could access another without restrictions, causing security vulnerabilitie,s allowing attackers to attack and steal sensitive data or perform actions without user consent.  
+Without SOP, another malicious website or web application could access another without restrictions, causing security vulnerabilities, allowing attackers to attack and steal sensitive data or perform actions without user consent.  
 
 SOP need not be turned on; it automatically comes with browsers.  
-The SOP mechanism was basically built to prevent CSRF(Cross-Site Request Forgery) attacks. We will understand about CSRF later.
+The SOP mechanism was basically built to prevent CSRF(Cross-Site Request Forgery) attacks.
 
 **But What is Origin?**
 
@@ -72,8 +72,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)  
 # CORS(app) // this allows all origin
-CORS(app, origins=[”http://127.0.0.1:5500”]) # this allows just that url.
+CORS(app, origins=["http://127.0.0.1:5500"]) # this allows just that url.
 ```
+
+Now you can explore this in other languages.
 
 ## CORS has 2 flows
 
@@ -122,4 +124,6 @@ And the response from the OPTIONS request means that:
 - **Access-Control-Allow-Methods** → lists all HTTP methods that are permitted for further requests
 - **Access-Control-Allow-Headers** → approves which custom headers can be used for further requests.
 
-And that’s it, you now understand what CORS really is, why browsers enforce it, and how the two request flows (simple and preflight) work behind the scenes
+And that’s it, you now understand what CORS really is, why browsers enforce it, and how the two request flows (simple and preflight) work behind the scenes.
+
+As a backend engineer, always remember: browsers aren’t blocking you for fun, they’re protecting you and other users.

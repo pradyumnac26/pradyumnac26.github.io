@@ -16,11 +16,8 @@ Every vector in your index was produced by that model. If you switch models, eve
 A document that is split into 15 chunks produces 15 separate vectors, each stored with its own ID. When that document is updated, you cannot simply update a row as you would in a relational database. You need to:
 
 - Identify all 15 chunk IDs that belong to the old version of the document
-
 - Delete them from the vector store
-
 - Re-chunk the updated document (which may now produce 17 chunks)
-
 - Re-embed and insert the 17 new chunks
 
 This requires a mapping layer that vector databases do not provide natively. The standard approach is a document registry, a simple relational table ([Postgres](https://www.postgresql.org/) works fine) that maps each `doc_id` to the list of chunk vector IDs currently in the index:
@@ -38,11 +35,8 @@ When a better embedding model is released, every vector in your index is now wro
 This means embedding model upgrades require full corpus re-embedding. In practice, the migration strategy is:
 
 - Build a shadow index with the new model running in parallel
-
 - Route a small percentage of queries to the shadow index and compare results
-
 - Gradually shift traffic using the alias pattern above
-
 - Keep the old index warm until you are confident in the new one
 
 The operational cost of this is why embedding model choice deserves more up-front  thought than it typically gets. Treat it like a database schema migration: painful to undo, so choose carefully.
@@ -69,11 +63,8 @@ Pure vector search misses documents with specific technical terms, product names
 RAGAS is the standard framework for measuring RAG pipeline quality. It computes four metrics:
 
 - Context Recall: what fraction of relevant information was retrieved
-
 - Context Precision: what fraction of retrieved information was relevant
-
 - Answer Faithfulness: does the generated answer stay grounded in the retrieved context
-
 - Answer Relevancy: does the answer actually address the query
 
 Use RAGAS as a before/after instrument every time you change the pipeline — when you added hybrid search, did Context Recall improve? When you added reranking, did Context Precision improve without destroying Recall?

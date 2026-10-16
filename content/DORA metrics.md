@@ -15,11 +15,8 @@ There are four high-signal indicators that describe how fast and reliable your s
 ## The four metrics
 
 - **Deployment frequency**:  how often does your organization deploy code to production, or release it to end users ?
-
 -  **Lead time for changes**:  how long does it take to go from code committed to code successfully running in production ?
-
 -  **Change failure rate**:  What percentage of changes to production or releases to users result in degraded service ?
-
 -  **Time to restore service (MTTR)**:  how long does it generally take to restore service after a change to production or release to users results in degraded service ?
 
 ## Why they matter

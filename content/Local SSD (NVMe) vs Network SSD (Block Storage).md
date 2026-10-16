@@ -37,3 +37,5 @@ updated: 2026-02-09
 - Databases where persistence is required
 - When you need to detach/reattach disks
 - Workloads requiring durability and backup
+
+For how an SSD stores data internally (NAND flash chips and the NVMe controller), see [[How SSDs Store Data]].

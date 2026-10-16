@@ -39,9 +39,7 @@ Here's the corrected version, scaled up so the multiplication actually holds:
 Say the cache holds 1,000 items, and 100 of them are "hot" (still needed) — so any single random pick has a 100/1000 = 10% chance of landing on a hot one. (Small caches with only a handful of items break this math, since removing one hot item from a tiny pool changes the odds a lot, but real caches are large enough that this approximation holds well.)
 
 - **Sampling 1 random item:** a 1-in-10 chance it's hot. Mistake rate: **10%**.
-
 - **Sampling 2 and evicting the older:** you only mess up if _both_ picks happen to be hot, since if only one is hot you'd naturally throw away the cold one instead. First pick: 10% chance of hot. Second pick, from the remaining 999 items with 99 hot ones left: ≈9.9% chance. Multiplied together: `10% × 9.9% ≈ 1%`. A **10x drop** from a single extra read.
-
 - **Sampling 3:** you'd need all three to be hot: roughly `10% × 9.9% × 9.8% ≈ 0.1%`. Another 10x on paper, but that's shrinking an already-rare mistake (1-in-100) into an even rarer one (1-in-1000), while paying for a 3rd read on every single eviction, forever.
 
 The jump from 1 to 2 samples buys a huge, meaningful improvement. which is exactly why 2-random is the sweet spot.

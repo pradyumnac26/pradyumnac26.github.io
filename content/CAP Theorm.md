@@ -46,7 +46,6 @@ A user in Asia updates their profile. Since the Asia cluster cannot talk to the 
 
 - **The CP Choice (Consistency):**  
     We want the USA user to see the updated data. But because the network is broken, we can't sync the update. To maintain consistency, we must return an error to the USA user (decreasing Availability). We'd rather show a "Service Unavailable" message than show the wrong data.
-  
 - **The AP Choice (Availability)**:  
     We want the system to have zero downtime. Even though the clusters can't talk, the USA cluster still responds to the user. However, the user sees the old, stale data because the Asia update hasn't arrived yet. The system is available, but the data is inconsistent.
 

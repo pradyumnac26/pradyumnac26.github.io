@@ -7,6 +7,10 @@ sources:
   - article
 updated: 2026-02-06
 ---
+This article is my attempt to make Kafka feel intuitive. We’ll walk through the core building blocks and the reasoning behind them, with practical notes along the way.
+
+Let’s dive in.
+
 ## What is Kafka?
 
 [Kafka documentation](https://kafka.apache.org/41/getting-started/introduction/) states that Apache Kafka is an open-source, highly scalable, durable, fault-tolerant distributed event streaming platform. A variety of companies use Kafka in production systems, you can access the list of companies that use Kafka [here](https://cwiki.apache.org/confluence/display/KAFKA/Powered+By).
@@ -44,8 +48,13 @@ An event describes something that happened. For example, in an e-commerce system
 
 Each message is a key-value pair, which looks like this:
 
-```
-{  "order_id": "order-1234",  "order_amount": "50.00",  "created_by": "praddy",  "created_on": "2026-02-09T22:02:00Z"}
+```json
+{
+  "order_id": "order-1234",
+  "order_amount": "50.00",
+  "created_by": "praddy",
+  "created_on": "2026-02-09T22:02:00Z"
+}
 ```
 
 ## Topics
@@ -114,14 +123,12 @@ Under the hood, this is usually:
 
 - `Partition no = hash(key) % p`, where `p` = number of partitions
 - Messages with the same key always go to the same partition, which means they are stored in order within that partition
-- If we decide to change the number of partitions `p` later (increase or decrease), the same key may start routing to a different partition, so there might not be ordering guarantee. It is always advised to choose the partition number up front based on the parallelism and throughput needs.
+- If we decide to change the number of partitions `p` later (increase or decrease), the same key may start routing to a different partition, so there might not be ordering guarantee. It is always advised to choose the partition number up front based on the parallelism and throughput needs. (This is the same rehashing problem with `hash(key) % N` explained in [[Consistent Hashing]].)
 
 If needed, producers can also:
 
 - Directly specify the partition number, or
 - Implement a custom partitioning logic (useful, but should be done carefully to avoid hot partitions and uneven load)
-
-> I will dedicate a separate article to discuss the internals of the Kafka producer in the upcoming weeks.
 
 ## Consumers
 
@@ -154,8 +161,6 @@ A consumer can read from one or more partitions, but no two consumers in the sam
 Now remember the offset we briefly introduced earlier as the position number (0, 1, 2, and so on) of a message inside a partition. This is exactly why offsets are useful. As consumers read from a partition, Kafka tracks how far they have read using offsets, and these offsets are tracked per consumer group, per partition.  
 
 Kafka stores these committed offsets inside an internal Kafka topic called `__consumer_offsets`, which is how Kafka can remember progress even if a consumer crashes or restarts. Because of this, consumers can resume from where they left off after failures, and different consumer groups can consume the same topic independently with their own progress.
-
-> I will dedicate a separate article to discuss the internals of Kafka consumers.
 
 ## Replication
 

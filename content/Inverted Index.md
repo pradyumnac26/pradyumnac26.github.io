@@ -99,7 +99,6 @@ word → [(doc_id, tf, positions, offsets), (doc_id, tf, positions, offsets), ..
     How many times the term occurs in the doc
     
     > This information is useful for ranking search results. A document in which the search term appears multiple times may be considered more relevant than one in which it appears only once.
-    
 2. **Positions :**
     
     Where in the doc does the term appear
@@ -123,7 +122,6 @@ word → [(doc_id, tf, positions, offsets), (doc_id, tf, positions, offsets), ..
     ```
     
     the search engine checks whether the position of `Agents` immediately follows the position of `AI.` This helps in u know much accurate searches.
-    
 3. **Offsets :**
     
     Gives the character positioning
@@ -160,9 +158,7 @@ AI → [DOC3, DOC8, DOC1]
 These documents are usually selected based on factors such as:
 
 - High term frequency
-
 - Importance of the term within the document
-
 - Overall document quality or popularity
 
 #### Keeping Posting Lists Sorted
