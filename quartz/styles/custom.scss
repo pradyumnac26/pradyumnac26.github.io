@@ -596,7 +596,7 @@ html[saved-theme="dark"] body .backlinks > ul.overflow > li > a {
 
 // Unified page background (Obsidian theme plugin overrides quartz.config.yaml)
 $bg-light: #fcfaf5;
-$bg-dark: #121213;
+$bg-dark: #1a1a1a;
 
 @mixin surface-vars($bg) {
   --light: #{$bg};
