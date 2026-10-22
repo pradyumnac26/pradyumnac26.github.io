@@ -6,11 +6,8 @@ topics:
 sources:
 updated: 2026-10-21
 ---
-# Inference Engineering Tutorial: Make a tiny LLM server on a Mac!
 
-*October 21, 2026*
-
-In this post I build **miniserve**, a tiny LLM inference server. It's a FastAPI app wrapping [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B), a small 0.6-billion-parameter model from Hugging Face. Then I run two experiments to see how input length and output length affect latency.
+In this post I build miniserve, a tiny LLM inference server. It's a FastAPI app wrapping [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B), a small 0.6-billion-parameter model from Hugging Face. Then I run two experiments to see how input length and output length affect latency.
 
 All the code is on GitHub: [pradyumnac26/miniserve](https://github.com/pradyumnac26/miniserve).
 
@@ -20,7 +17,7 @@ The goal isn't a fast server. The goal is a simple baseline I understand, so tha
 
 ## My Setup
 
-Everything runs on **one machine**:
+Everything runs on one machine:
 
 - **Machine:** MacBook Pro with an **Apple M4 Pro** chip
 - **Accelerator:** the Apple GPU through PyTorch's **MPS** (Metal Performance Shaders) backend
@@ -240,11 +237,11 @@ When an LLM generates a response, inference happens in two phases. In this serve
 
 ### Prefill
 
-The model processes the **entire input prompt** in one forward pass and produces a key/value tensor for every prompt token, which is the **KV cache**. Prompt tokens can all be processed in parallel.
+The model processes the entire input prompt in one forward pass and produces a key/value tensor for every prompt token, which is the KV cache. Prompt tokens can all be processed in parallel.
 
 ### Decode
 
-The model then generates output tokens **one at a time**. This is called **autoregressive decoding**: token 2 can't be computed until token 1 has been picked. Each new token needs another forward pass, so more output tokens means more decode steps.
+The model then generates output tokens one at a time. This is called autoregressive decoding: token 2 can't be computed until token 1 has been picked. Each new token needs another forward pass, so more output tokens means more decode steps.
 
 In simple words:
 
@@ -256,9 +253,9 @@ In simple words:
 
 **Setup:** [`benchmark_output.py`](https://github.com/pradyumnac26/miniserve/blob/main/benchmark_output.py)
 
-- Fixed prompt: `"Explain transformer architecture in detail."` (**19 input tokens** after the chat template)
+- Fixed prompt: `"Explain transformer architecture in detail."` (19 input tokens after the chat template)
 - `max_output_tokens` = 10, 50, 100, 200, 250
-- **3 warm-up requests** first, then **5 runs per setting**, averaged
+- 3 warm-up requests first, then 5 runs per setting, averaged
 
 ```python
 PROMPT = "Explain transformer architecture in detail."
@@ -298,17 +295,16 @@ xychart-beta
 
 ### Observations
 
-In terms of $T(P, N)$, I'm **fixing $P = 19$** and **varying $N$**.
 
-**Tokens/sec** rises from ~101 to ~124, then **plateaus**.
+**Tokens/sec** rises from ~101 to ~124, then plateaus.
 
-**Latency** is almost perfectly **linear** in the number of output tokens.
+**Latency** is almost perfectly linear in the number of output tokens.
 
 ### Questions
 
 **How long does it take to generate one token?**
 
-Tokens/sec levels off at about **124**, so each extra token costs about
+Tokens/sec levels off at about 124, so each extra token costs about
 
 $$
 \frac{1}{124} \approx 0.008 \text{ s} = 8 \text{ ms}
@@ -329,7 +325,7 @@ When the output is shorter, the start up time is relatively large compared to th
 **Setup:** [`benchmark_input.py`](https://github.com/pradyumnac26/miniserve/blob/main/benchmark_input.py)
 
 - Five prompts of increasing length, all about Transformers and inference
-- Always generate **100 output tokens**
+- Always generate 100 output tokens
 - One request per prompt
 
 I used real, increasingly long passages of text. The tokenizer measures the actual length, including the chat template.
