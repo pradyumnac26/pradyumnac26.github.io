@@ -951,3 +951,38 @@ figure.image-with-caption {
     line-height: 1.35;
   }
 }
+
+// Tables — even-width digits everywhere, compact cells on phones
+html body article .table-container table {
+  font-variant-numeric: tabular-nums;
+}
+
+@media all and ($mobile) {
+  html body article .table-container {
+    margin: 1rem 0;
+
+    & > table {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      font-size: 13px;
+
+      & > * {
+        line-height: 1.35;
+      }
+
+      th,
+      td {
+        min-width: 0;
+        padding: 0.45rem 0.55rem;
+        line-height: 1.35;
+        font-size: 13px;
+      }
+
+      th {
+        font-weight: 600;
+        vertical-align: bottom;
+      }
+    }
+  }
+}
