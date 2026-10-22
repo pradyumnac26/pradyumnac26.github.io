@@ -501,6 +501,28 @@ pre {
 
   &:has(> code.mermaid) {
     border: none;
+    background: transparent;
+    padding: 0 1.5rem;
+    overflow: visible;
+
+    & > code.mermaid {
+      background: transparent;
+      overflow: visible;
+    }
+
+    & svg[aria-roledescription="xychart"] {
+      overflow: visible;
+
+      & [class^="line-plot"] path {
+        stroke-width: 1.5px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+      }
+
+      & .chart-title text {
+        font-weight: 600;
+      }
+    }
   }
 
   & > code {
