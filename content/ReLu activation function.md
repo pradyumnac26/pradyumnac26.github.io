@@ -9,7 +9,7 @@ updated: 2026-09-27
 ---
 ReLu is called as the Rectified Linear Unit. 
 
-Just like [[Sigmoid activation function]] and [[Tanh activation function]], ReLU takes the raw logit $z = wx+b$ and transforms it into something else. But unlike those two, it doesn't squash anything into a bounded range.
+Just like [[Sigmoid activation function]] and [[Tanh activation function]], ReLU takes the raw [[Logits|logit]] $z = wx+b$ and transforms it into something else. But unlike those two, it doesn't squash anything into a bounded range.
 
 $$
 \text{ReLU}(z) = \max(0, z)

@@ -243,7 +243,7 @@ Lets build a neural network that looks like this :
 ![[diabetes-mlp-architecture.png]]
 
 
-The 8 inputs are the patient’s features. The two hidden layers have 25 and 15 neurons, and the last layer outputs a single raw score called a logit. (We don’t apply a sigmoid ourselves, because the loss function handles that internally.) 
+The 8 inputs are the patient’s features. The two hidden layers have 25 and 15 neurons, and the last layer outputs a single raw score called a [[Logits|logit]]. (We don’t apply a sigmoid ourselves, because the loss function handles that internally.) 
 
 ### Step 1: Preparing the data 
 

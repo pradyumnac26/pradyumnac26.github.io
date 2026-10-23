@@ -233,15 +233,15 @@ It works! 🎉
 
 ## Introducing Prefill and Decode
 
-When an LLM generates a response, inference happens in two phases. In this server both are hidden inside `model.generate()`.
+When an LLM generates a response, inference happens in two phases: [[Prefill]] and [[Decode]]. In this server both are hidden inside `model.generate()`.
 
 ### Prefill
 
-The model processes the entire input prompt in one forward pass and produces a key/value tensor for every prompt token, which is the KV cache. Prompt tokens can all be processed in parallel.
+The model processes the entire input prompt in one forward pass and produces a key/value tensor for every prompt token, which is the KV cache. Prompt tokens can all be processed in parallel. More on this in [[Prefill]].
 
 ### Decode
 
-The model then generates output tokens one at a time. This is called autoregressive decoding: token 2 can't be computed until token 1 has been picked. Each new token needs another forward pass, so more output tokens means more decode steps.
+The model then generates output tokens one at a time. This is called autoregressive decoding: token 2 can't be computed until token 1 has been picked. Each new token needs another forward pass, so more output tokens means more decode steps. More on this in [[Decode]].
 
 In simple words:
 
