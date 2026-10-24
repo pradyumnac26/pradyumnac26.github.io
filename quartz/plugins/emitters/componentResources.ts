@@ -8,6 +8,8 @@ import spaRouterScript from "../../components/scripts/spa.inline"
 import popoverScript from "../../components/scripts/popover.inline"
 // @ts-ignore
 import twitterEmbedsScript from "../../components/scripts/twitterEmbeds.inline"
+// @ts-ignore
+import backlinksCollapseScript from "../../components/scripts/backlinksCollapse.inline"
 import baseStyles from "../../styles/base.scss"
 import customStyles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
@@ -93,6 +95,11 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   }
 
   componentResources.afterDOMLoaded.push(twitterEmbedsScript)
+  componentResources.afterDOMLoaded.push(backlinksCollapseScript)
+  // iOS Safari only applies :active styles when a touchstart listener exists
+  componentResources.afterDOMLoaded.push(
+    `document.addEventListener("touchstart", () => {}, { passive: true })`,
+  )
 
   if (cfg.analytics?.provider === "google") {
     const tagId = cfg.analytics.tagId

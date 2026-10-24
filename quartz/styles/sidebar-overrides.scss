@@ -166,6 +166,35 @@ html body .backlinks > ul.overflow > li:not(.overflow-end) {
   }
 }
 
+html body .backlinks > ul.overflow > li.backlinks-hidden {
+  display: none !important;
+}
+
+html body .backlinks > .backlinks-toggle {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0.35rem 0 0 1.25rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: color-mix(in srgb, var(--dark) 20%, transparent);
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dark);
+    text-decoration-color: var(--dark);
+  }
+}
+
 html body .posts-index .posts-list .posts-list-title.internal,
 html body .posts-index .posts-list a.posts-list-title.internal-link {
   color: var(--dark) !important;

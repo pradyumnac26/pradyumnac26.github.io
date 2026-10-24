@@ -986,3 +986,15 @@ html body article .table-container table {
     }
   }
 }
+
+// Touch feedback — replaces the browser's grey tap box with a fade on press
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: none) {
+  a:active,
+  button:active {
+    filter: opacity(60%);
+  }
+}

@@ -4,8 +4,11 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { getDate } from "./Date"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { QuartzPageTypePluginInstance } from "../plugins/types"
+// @ts-ignore — bundled as inline client script at build time
+import paginationScript from "./scripts/postsPagination.inline.ts"
 
 const POSTS_SLUG = "posts"
+const POSTS_PAGE_SIZE = 15
 
 function isNotePage(file: QuartzPluginData): boolean {
   const slug = file.slug ?? ""
@@ -359,6 +362,57 @@ PostsList.css = `
   }
 }
 
+.posts-year-group[hidden],
+.posts-list-item[hidden] {
+  display: none !important;
+}
+
+.posts-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 2.5rem 0 0;
+  padding-left: calc(48px + 16px - 0.55rem);
+}
+
+.posts-pagination-button {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.1rem 0.55rem;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--dark);
+    border-color: color-mix(in srgb, var(--dark) 20%, transparent);
+  }
+
+  &.is-current {
+    color: var(--dark);
+    border-color: color-mix(in srgb, var(--dark) 35%, transparent);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.posts-pagination-gap {
+  color: color-mix(in srgb, var(--dark) 55%, transparent);
+  font-size: 13px;
+  padding: 0 0.2rem;
+}
+
 @media (max-width: 1024px) {
   .posts-list-item {
     grid-template-columns: minmax(0, 1fr);
@@ -388,7 +442,7 @@ const PostsPageBody: QuartzComponentConstructor = () => {
     const pages = rest.allFiles.filter(isNotePage).sort(byDateDesc(rest.cfg))
 
     return (
-      <div class={classes}>
+      <div class={classes} data-page-size={POSTS_PAGE_SIZE}>
         <NoteIndexList
           {...rest}
           fileData={fileData}
@@ -399,6 +453,7 @@ const PostsPageBody: QuartzComponentConstructor = () => {
     )
   }
   Body.css = PostsList.css
+  Body.afterDOMLoaded = paginationScript
   return Body
 }
 
