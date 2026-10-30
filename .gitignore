@@ -14,4 +14,4 @@ quartz/cli/tui/dist/
 .turbo/
 guestbook-api/.data/
 guestbook-api/.vercel/
-guestbook-api/.env
+guestbook-api/.env*

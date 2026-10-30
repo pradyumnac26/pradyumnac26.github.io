@@ -11,5 +11,6 @@ I write about AI, LLMs, distributed systems, and the engineering ideas that fasc
 Explore:
 
 - [All notes](posts) 
+- [Guestbook](Guestbook): leave a note, I'd love to hear from you
 
 Enjoy your time around :)

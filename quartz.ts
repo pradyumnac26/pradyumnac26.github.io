@@ -138,7 +138,7 @@ const pixelArt = PixelArtLandscape()
 const homeSignature = HomeSignature()
 const tocActiveSection = TocActiveSection()
 const guestbook = Guestbook({
-  apiUrl: process.env.GUESTBOOK_API_URL ?? "http://localhost:8787/api/entries",
+  apiUrl: process.env.GUESTBOOK_API_URL ?? "https://guestbook-api-seven.vercel.app/api/entries",
 })
 const contentBeforeBody =
   baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
