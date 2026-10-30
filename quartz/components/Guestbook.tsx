@@ -28,7 +28,7 @@ export default ((opts: Options) => {
             <input
               name="name"
               type="text"
-              placeholder="Your real name, so I know who to thank 🙂"
+              placeholder="Your name, so I know who to thank 🙂"
               aria-label="Your name"
               maxLength={60}
               required

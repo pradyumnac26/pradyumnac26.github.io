@@ -1,6 +1,7 @@
 import { CustomOgImages } from "@quartz-community/og-image"
 import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
 import { componentRegistry } from "./quartz/components/registry"
+import { registerCondition } from "./quartz/plugins/loader/conditions"
 import { PageTypeDispatcher } from "./quartz/plugins/pageTypes/dispatcher"
 import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
 import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
@@ -16,6 +17,7 @@ componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
   showTags: false,
 })
+registerCondition("not-guestbook", (props) => props.fileData.frontmatter?.guestbook !== true)
 
 const notesMoreLabelScript = `
 const MOBILE_RECENT_LIMIT = 2

@@ -1,3 +1,5 @@
+@use "../../styles/variables.scss" as *;
+
 $avatar-size: 32px;
 $reply-avatar-size: 24px;
 $avatar-gap: 0.65rem;
@@ -246,4 +248,16 @@ html .guestbook .guestbook-avatar.guestbook-avatar-default {
 .guestbook-empty {
   font-size: 0.875rem;
   color: var(--gray);
+}
+
+@media all and #{$mobile} {
+  .guestbook {
+    margin-bottom: 3rem;
+  }
+
+  .guestbook .guestbook-entry-message {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
 }
