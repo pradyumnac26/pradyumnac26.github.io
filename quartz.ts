@@ -6,9 +6,11 @@ import { PostsPage, TopicPage, isNotePage } from "./quartz/components/PostsList"
 import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
 import HomeSignature from "./quartz/components/HomeSignature"
 import TocActiveSection from "./quartz/components/TocActiveSection"
+import Guestbook from "./quartz/components/Guestbook"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
+import { guestbookStylesPlugin } from "./quartz/plugins/transformers/guestbookStyles"
 import { siteOgImage } from "./quartz/util/ogImage"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
@@ -123,13 +125,21 @@ updateRecentNotesForViewport()
 `
 
 const config = await loadQuartzConfig()
-config.plugins.transformers.push(topicGraphLinks(), sidebarNavOverrides(), imageCaptions())
+config.plugins.transformers.push(
+  topicGraphLinks(),
+  sidebarNavOverrides(),
+  imageCaptions(),
+  guestbookStylesPlugin(),
+)
 config.plugins.pageTypes ??= []
 config.plugins.pageTypes.push(PostsPage(), TopicPage())
 const baseLayout = await loadQuartzLayout()
 const pixelArt = PixelArtLandscape()
 const homeSignature = HomeSignature()
 const tocActiveSection = TocActiveSection()
+const guestbook = Guestbook({
+  apiUrl: process.env.GUESTBOOK_API_URL ?? "http://localhost:8787/api/entries",
+})
 const contentBeforeBody =
   baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
 const contentAfterBody =
@@ -137,7 +147,7 @@ const contentAfterBody =
 baseLayout.byPageType.content = {
   ...baseLayout.byPageType.content,
   beforeBody: [tocActiveSection, pixelArt, ...contentBeforeBody],
-  afterBody: [...contentAfterBody, homeSignature],
+  afterBody: [guestbook, ...contentAfterBody, homeSignature],
 }
 const footer = baseLayout.defaults.footer?.[0]
 

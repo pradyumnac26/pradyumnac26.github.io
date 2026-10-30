@@ -1,0 +1,249 @@
+$avatar-size: 32px;
+$reply-avatar-size: 24px;
+$avatar-gap: 0.65rem;
+
+.guestbook {
+  margin-top: 1.5rem;
+}
+
+.guestbook .guestbook-form {
+  display: flex;
+  align-items: flex-start;
+  gap: $avatar-gap;
+  padding: 0.7rem 1rem 0.8rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+
+  .guestbook-form-avatar {
+    display: flex;
+    flex: none;
+    margin-top: 0.1rem;
+  }
+
+  .guestbook-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  input[type="text"],
+  textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    appearance: none;
+    font: inherit;
+    font-size: 0.875rem;
+    color: var(--dark);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0.4rem 0;
+    resize: none;
+
+    &::placeholder {
+      color: var(--gray);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  input[name="name"] {
+    border-bottom: 1px solid var(--lightgray);
+
+    &:focus {
+      border-bottom-color: var(--gray);
+    }
+  }
+}
+
+.guestbook .guestbook-form .guestbook-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.guestbook .guestbook-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  button {
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+  }
+
+  button[type="submit"] {
+    color: var(--secondary);
+  }
+
+  .guestbook-cancel {
+    color: var(--gray);
+    font-weight: 400;
+  }
+}
+
+.guestbook-status {
+  font-size: 0.8rem;
+  color: var(--gray);
+
+  &[data-state="error"] {
+    color: #c0392b;
+  }
+}
+
+.guestbook .guestbook-entries,
+.guestbook .guestbook-replies {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  > li {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.guestbook .guestbook-entries {
+  margin-top: 2rem;
+
+  > li {
+    margin-bottom: 1.1rem;
+  }
+}
+
+.guestbook .guestbook-entry-body {
+  display: flex;
+  align-items: flex-start;
+  gap: $avatar-gap;
+}
+
+.guestbook .guestbook-entry-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.guestbook .guestbook-avatar {
+  flex: none;
+  width: $avatar-size;
+  height: $avatar-size;
+  margin: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background: hsl(var(--avatar-hue, 0) 35% 90%);
+  fill: hsl(var(--avatar-hue, 0) 55% 50%);
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+html[saved-theme="dark"] .guestbook .guestbook-avatar {
+  background: hsl(var(--avatar-hue, 0) 25% 20%);
+  fill: hsl(var(--avatar-hue, 0) 60% 62%);
+}
+
+html .guestbook .guestbook-avatar.guestbook-avatar-default {
+  padding: 0;
+  overflow: hidden;
+  background: var(--lightgray);
+  fill: var(--gray);
+}
+
+.guestbook img.guestbook-avatar {
+  padding: 0;
+}
+
+.guestbook .guestbook-replies .guestbook-avatar {
+  width: $reply-avatar-size;
+  height: $reply-avatar-size;
+}
+
+.guestbook .guestbook-replies {
+  margin-left: calc($avatar-size / 2);
+  padding-left: calc($avatar-size / 2 + $avatar-gap);
+  border-left: 1px solid var(--lightgray);
+
+  &:empty {
+    display: none;
+  }
+
+  > li {
+    margin-top: 0.8rem;
+  }
+}
+
+.guestbook .guestbook-reply-form {
+  margin: 0.6rem 0 0.4rem calc($avatar-size + $avatar-gap);
+}
+
+.guestbook-entry-header {
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+.guestbook .guestbook-entry-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.guestbook .guestbook-author {
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--light);
+  background: var(--secondary);
+  border-radius: 4px;
+  vertical-align: 0.1em;
+}
+
+.guestbook .guestbook-entry-message {
+  margin: 0.1rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--darkgray);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.guestbook .guestbook-reply {
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gray);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.15rem;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--secondary);
+  }
+}
+
+.guestbook-empty {
+  font-size: 0.875rem;
+  color: var(--gray);
+}
