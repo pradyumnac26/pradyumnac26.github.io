@@ -5,7 +5,8 @@ configuration:
   enableSPA: true
   enablePopovers: true
   analytics:
-    provider: plausible
+    provider: goatcounter
+    websiteId: pradyumna
   locale: en-US
   baseUrl: pradyumnac26.github.io
   ignorePatterns:
