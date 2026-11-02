@@ -62,12 +62,24 @@ export function OPTIONS(request) {
   return new Response(null, { status: 204, headers: corsHeaders(request) })
 }
 
-export async function GET(request) {
+// Entries are public, so the edge caches one copy for every origin. Visitors get it
+// instantly and the function (and GitHub) is only hit in the background to refresh it.
+export async function GET() {
   try {
-    return json(request, 200, { entries: await store.list() })
+    return new Response(JSON.stringify({ entries: await store.list() }), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "public, s-maxage=30, stale-while-revalidate=86400",
+      },
+    })
   } catch (err) {
     console.error(err)
-    return json(request, 500, { error: "Couldn't load the guestbook right now." })
+    return new Response(JSON.stringify({ error: "Couldn't load the guestbook right now." }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+    })
   }
 }
 

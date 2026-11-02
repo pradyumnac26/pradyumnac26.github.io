@@ -8,6 +8,7 @@ interface GuestbookEntry {
 }
 
 const OWNER_KEY_STORAGE_KEY = "guestbook-owner-key"
+const POSTED_STORAGE_KEY = "guestbook-posted"
 const OWNER_HASH_PREFIX = "#owner="
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -85,6 +86,21 @@ function readOwnerKey(): string | null {
   return localStorage.getItem(OWNER_KEY_STORAGE_KEY)
 }
 
+// The entries list is cached at the edge for a short while, so this browser's own posts are
+// kept here until the API starts returning them; otherwise a quick reload would hide them.
+function readPosted(): GuestbookEntry[] {
+  try {
+    return JSON.parse(sessionStorage.getItem(POSTED_STORAGE_KEY) ?? "[]")
+  } catch {
+    return []
+  }
+}
+
+function writePosted(entries: GuestbookEntry[]) {
+  if (entries.length) sessionStorage.setItem(POSTED_STORAGE_KEY, JSON.stringify(entries))
+  else sessionStorage.removeItem(POSTED_STORAGE_KEY)
+}
+
 function setupGuestbook() {
   const root = document.querySelector<HTMLElement>(".guestbook")
   if (!root) return
@@ -152,6 +168,7 @@ function setupGuestbook() {
       status.textContent = "Posting…"
       try {
         const entry = await post({ ...data, parentId })
+        if (entry) writePosted([entry, ...readPosted()])
         form.reset()
         updateAvatar()
         status.textContent = ""
@@ -258,7 +275,11 @@ function setupGuestbook() {
     try {
       const res = await fetch(apiUrl)
       if (!res.ok) throw new Error(String(res.status))
-      const { entries } = (await res.json()) as { entries: GuestbookEntry[] }
+      const { entries: fetched } = (await res.json()) as { entries: GuestbookEntry[] }
+      const fetchedIds = new Set(fetched.map((entry) => entry.id))
+      const pending = readPosted().filter((entry) => !fetchedIds.has(entry.id))
+      writePosted(pending)
+      const entries = [...pending, ...fetched]
       const ids = new Set(entries.map((entry) => entry.id))
       const topLevel: GuestbookEntry[] = []
       for (const entry of entries) {

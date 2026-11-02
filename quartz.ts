@@ -11,7 +11,7 @@ import Guestbook from "./quartz/components/Guestbook"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
-import { guestbookStylesPlugin } from "./quartz/plugins/transformers/guestbookStyles"
+import { guestbookResourcesPlugin } from "./quartz/plugins/transformers/guestbookResources"
 import { siteOgImage } from "./quartz/util/ogImage"
 componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
@@ -126,12 +126,15 @@ stabilizeLeftSidebar()
 updateRecentNotesForViewport()
 `
 
+const guestbookApiUrl =
+  process.env.GUESTBOOK_API_URL ?? "https://guestbook-api-seven.vercel.app/api/entries"
+
 const config = await loadQuartzConfig()
 config.plugins.transformers.push(
   topicGraphLinks(),
   sidebarNavOverrides(),
   imageCaptions(),
-  guestbookStylesPlugin(),
+  guestbookResourcesPlugin({ apiUrl: guestbookApiUrl }),
 )
 config.plugins.pageTypes ??= []
 config.plugins.pageTypes.push(PostsPage(), TopicPage())
@@ -139,9 +142,7 @@ const baseLayout = await loadQuartzLayout()
 const pixelArt = PixelArtLandscape()
 const homeSignature = HomeSignature()
 const tocActiveSection = TocActiveSection()
-const guestbook = Guestbook({
-  apiUrl: process.env.GUESTBOOK_API_URL ?? "https://guestbook-api-seven.vercel.app/api/entries",
-})
+const guestbook = Guestbook({ apiUrl: guestbookApiUrl })
 const contentBeforeBody =
   baseLayout.byPageType.content?.beforeBody ?? baseLayout.defaults.beforeBody ?? []
 const contentAfterBody =
