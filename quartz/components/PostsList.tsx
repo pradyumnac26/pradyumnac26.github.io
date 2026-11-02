@@ -9,6 +9,7 @@ import paginationScript from "./scripts/postsPagination.inline.ts"
 
 const POSTS_SLUG = "posts"
 const GUESTBOOK_SLUG = "guestbook"
+const ANALYTICS_SLUG = "analytics"
 const POSTS_PAGE_SIZE = 15
 
 function isNotePage(file: QuartzPluginData): boolean {
@@ -18,6 +19,7 @@ function isNotePage(file: QuartzPluginData): boolean {
     slug !== "404" &&
     slug !== POSTS_SLUG &&
     slug !== GUESTBOOK_SLUG &&
+    slug !== ANALYTICS_SLUG &&
     !slug.startsWith("clippings/") &&
     !slug.startsWith("tags/") &&
     !slug.startsWith("topics/")

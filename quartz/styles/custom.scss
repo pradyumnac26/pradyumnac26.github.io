@@ -544,6 +544,41 @@ html[saved-theme="dark"] body .posts-index {
   }
 }
 
+// Analytics page top lists — same accent + thin underline as in-article links
+html[saved-theme="light"] body .analytics-page {
+  --link-accent: #3b6a8f;
+}
+
+html[saved-theme="dark"] body .analytics-page {
+  --link-accent: #8fb0c6;
+}
+
+html[saved-theme="light"] body .analytics-page,
+html[saved-theme="dark"] body .analytics-page {
+  a.analytics-list-name {
+    color: var(--link-accent);
+    font-weight: inherit;
+    background: none;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    text-decoration-color: color-mix(in srgb, var(--link-accent) 40%, transparent);
+    transition: text-decoration-color 0.2s ease;
+
+    &:link,
+    &:visited {
+      color: var(--link-accent);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--link-accent);
+      text-decoration-color: var(--link-accent);
+    }
+  }
+}
+
 // Left sidebar notes list layout (typography: sidebar-overrides.scss, loaded after theme CSS)
 .sidebar.left .recent-notes {
   > h3:empty {

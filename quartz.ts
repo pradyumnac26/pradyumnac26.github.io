@@ -8,6 +8,8 @@ import PixelArtLandscape from "./quartz/components/PixelArtLandscape"
 import HomeSignature from "./quartz/components/HomeSignature"
 import TocActiveSection from "./quartz/components/TocActiveSection"
 import Guestbook from "./quartz/components/Guestbook"
+import FooterAnalytics from "./quartz/components/FooterAnalytics"
+import AnalyticsPage from "./quartz/components/AnalyticsPage"
 import { topicGraphLinks } from "./quartz/plugins/transformers/topicGraphLinks"
 import { sidebarNavOverrides } from "./quartz/plugins/transformers/sidebarNavOverrides"
 import { imageCaptions } from "./quartz/plugins/transformers/imageCaptions"
@@ -17,7 +19,13 @@ componentRegistry.setOptionOverrides("@quartz-community/recent-notes", {
   filter: isNotePage,
   showTags: false,
 })
-registerCondition("not-guestbook", (props) => props.fileData.frontmatter?.guestbook !== true)
+// The guestbook and analytics pages aren't notes, so they skip the graph and backlinks.
+registerCondition(
+  "not-app-page",
+  (props) =>
+    props.fileData.frontmatter?.guestbook !== true &&
+    props.fileData.frontmatter?.analytics !== true,
+)
 
 const notesMoreLabelScript = `
 const MOBILE_RECENT_LIMIT = 2
@@ -128,6 +136,8 @@ updateRecentNotesForViewport()
 
 const guestbookApiUrl =
   process.env.GUESTBOOK_API_URL ?? "https://guestbook-api-seven.vercel.app/api/entries"
+const analyticsApiUrl =
+  process.env.ANALYTICS_API_URL ?? "https://guestbook-api-seven.vercel.app/api/analytics"
 
 const config = await loadQuartzConfig()
 config.plugins.transformers.push(
@@ -150,7 +160,7 @@ const contentAfterBody =
 baseLayout.byPageType.content = {
   ...baseLayout.byPageType.content,
   beforeBody: [tocActiveSection, pixelArt, ...contentBeforeBody],
-  afterBody: [guestbook, ...contentAfterBody, homeSignature],
+  afterBody: [guestbook, AnalyticsPage(), ...contentAfterBody, homeSignature],
 }
 const footer = baseLayout.defaults.footer?.[0]
 
@@ -158,6 +168,13 @@ if (footer) {
   const existing = footer.afterDOMLoaded
   footer.afterDOMLoaded = (typeof existing === "string" ? existing : "") + notesMoreLabelScript
 }
+const footerAnalytics = FooterAnalytics({ apiUrl: analyticsApiUrl })
+// Page types share the default footer array by reference, so it's extended in place.
+const footerSlots = new Set([
+  baseLayout.defaults.footer,
+  ...Object.values(baseLayout.byPageType).map((pageType) => pageType.footer),
+])
+for (const slot of footerSlots) slot?.push(footerAnalytics)
 
 config.plugins.emitters = config.plugins.emitters.filter(
   (emitter) => emitter.name !== "PageTypeDispatcher" && emitter.name !== "CustomOgImages",
