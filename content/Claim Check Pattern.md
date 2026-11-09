@@ -33,6 +33,6 @@ It’s no longer Atomic, meaning:
 So in production, it would become super important to implement this along with cautions like :  
 - Retry logic  
 - Idempotent object keys  
-- Transactional outbox or cleanup
+- [[Transactional Outbox Pattern|Transactional outbox]] or cleanup
 
 ![[claim check pattern.png]]
