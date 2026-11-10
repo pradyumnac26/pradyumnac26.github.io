@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="black" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4a8f29"/></marker>
+  </defs>
+  <rect width="880" height="470" fill="#fff"/>
+
+  <rect x="40" y="180" width="210" height="80" fill="#fff" stroke="#d0021b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="145" y="220" font-size="26" text-anchor="middle">Coordinator</text>
+  <text x="145" y="246" font-size="15" text-anchor="middle" fill="#d0021b">CRASHED</text>
+  <text x="48" y="292" font-size="15">&lt;T42, BEGIN, [A, B]&gt;</text>
+  <text x="48" y="316" font-size="15" fill="#d0021b">no decision written</text>
+
+  <rect x="490" y="40" width="230" height="70" fill="#fbe3d6" stroke="#000" stroke-width="1.5"/>
+  <text x="605" y="84" font-size="26" text-anchor="middle">DB A</text>
+  <text x="498" y="138" font-size="15">&lt;T42, UPDATE accounts ...&gt;</text>
+  <text x="498" y="162" font-size="15" fill="#4a8f29">&lt;T42, PREPARED&gt;</text>
+  <text x="498" y="186" font-size="15" fill="#d0021b">holding locks, waiting...</text>
+
+  <rect x="490" y="290" width="230" height="70" fill="#fbe3d6" stroke="#000" stroke-width="1.5"/>
+  <text x="605" y="334" font-size="26" text-anchor="middle">DB B</text>
+  <text x="498" y="388" font-size="15">&lt;T42, INSERT transfers ...&gt;</text>
+  <text x="498" y="412" font-size="15" fill="#4a8f29">&lt;T42, PREPARED&gt;</text>
+  <text x="498" y="436" font-size="15" fill="#d0021b">holding locks, waiting...</text>
+
+  <line x1="250" y1="195" x2="488" y2="62" stroke="#000" stroke-width="1.5" marker-end="url(#black)"/>
+  <line x1="490" y1="88" x2="253" y2="220" stroke="#4a8f29" stroke-width="1.5" marker-end="url(#green)"/>
+  <text x="345" y="128" font-size="17" transform="rotate(-29 345 128)">PREPARE</text>
+  <text x="385" y="176" font-size="17" fill="#4a8f29" transform="rotate(-29 385 176)">YES</text>
+
+  <line x1="250" y1="240" x2="488" y2="310" stroke="#000" stroke-width="1.5" marker-end="url(#black)"/>
+  <line x1="490" y1="340" x2="253" y2="262" stroke="#4a8f29" stroke-width="1.5" marker-end="url(#green)"/>
+  <text x="350" y="255" font-size="17" transform="rotate(17 350 255)">PREPARE</text>
+  <text x="330" y="305" font-size="17" fill="#4a8f29" transform="rotate(18 330 305)">YES</text>
+</svg>
