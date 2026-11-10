@@ -91,7 +91,9 @@ flowchart LR
 If the coordinator crashes after participants have voted yes but before sending its decision, those participants can neither commit nor roll back on their own. They keep holding their locks, even across database restarts, until the coordinator recovers or an admin resolves the transaction manually. 
 
 
-
+For more details : 
+- https://cs186berkeley.net/sp21/resources/static/notes/n15-DistXact.pdf 
+- https://pages.cs.wisc.edu/~yxy/cs764-f20/slides/L11.pdf
 
 
 
