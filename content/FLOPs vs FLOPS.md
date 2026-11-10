@@ -22,5 +22,5 @@ For any matrix multiply `[M×K] × [K×N] + [M×N]`:
 
 ### FLOPS (Floating-Point Operations per Second)
 
-FLOPS, also written as FLOP/s, means Floating-Point Operations per Second. It’s the number of operations executed each second, so it measures computational performance (speed). For example, “the H100 runs at 67 TFLOPS.” See [[GPU Memory Hierarchy]] for where that number comes from.
+FLOPS, also written as FLOP/s, means Floating-Point Operations per Second. It’s the number of operations executed each second, so it measures computational performance (speed). For example, “the H100 runs at 67 TFLOPS.” See [[H100 GPU Architecture]] for where that number comes from.
 Time = Total work (FLOPs) ÷ Performance (FLOPS

@@ -21,7 +21,7 @@ Prefill runs the whole prompt once, fills the KV cache, and produces the first t
 Each step's output token becomes the next step's input, and the KV cache grows by one entry per generated token.
 
 - Prefill is compute bound: lots of math on many tokens at once.
-- Decode is memory-bandwidth bound: each step does little math for one token, but still has to read all the model weights and the whole KV cache from GPU memory ([[GPU Memory Hierarchy|HBM]]).
+- Decode is memory-bandwidth bound: each step does little math for one token, but still has to read all the model weights and the whole KV cache from GPU memory ([[H100 GPU Architecture#The memory hierarchy|HBM]]).
 
 ### What makes the decode phase slow?
 
