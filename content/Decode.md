@@ -15,13 +15,13 @@ It is an autoregressive loop. The model generates a token, appends it to the seq
 
 Prefill runs the whole prompt once, fills the KV cache, and produces the first token. Each decode step then feeds in only the newest token, reads the KV cache for everything before it, adds one new K, V entry, and produces the next token.
 
-![[Screenshot 2026-10-23 at 3.26.11 PM.png]]
+![[decode-sampling-with-kv-cache.png]]
 
 
 Each step's output token becomes the next step's input, and the KV cache grows by one entry per generated token.
 
 - Prefill is compute bound: lots of math on many tokens at once.
-- Decode is memory-bandwidth bound: each step does little math for one token, but still has to read all the model weights and the whole KV cache from memory.
+- Decode is memory-bandwidth bound: each step does little math for one token, but still has to read all the model weights and the whole KV cache from GPU memory ([[GPU Memory Hierarchy|HBM]]).
 
 ### What makes the decode phase slow?
 

@@ -62,7 +62,7 @@ flowchart TB
 ```
 
 
-Prefill is usually compute-bound, because the whole sequence is processed in parallel, so prefill is limited by GPU FLOPs. 
+Prefill is usually compute-bound, because the whole sequence is processed in parallel, so prefill is limited by GPU [[FLOPs vs FLOPS|FLOPs]]. 
 
 ### What makes Prefill phase slow ? 
 

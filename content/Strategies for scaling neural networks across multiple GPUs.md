@@ -23,7 +23,7 @@ While training, a GPU has to simultaneously hold several things in memory, all a
 - **Gradients** : stored for each parameter of the model, same memory footprint as the model parameters.
 - **Input data** : the current batch being processed, the memory footprint depends on the size and type of data being modeled. 
 
-So if the total memory of all these things add up to be more than the GPU memory then thats when we see the "CUDA out of memory" exception. 
+So if the total memory of all these things add up to be more than the [[GPU Memory Hierarchy|GPU memory]] then thats when we see the "CUDA out of memory" exception. 
 
 Now the question becomes what if a smaller batch size can be used to reduce memory. 
 But it comes with a trade off. Batch size affects 2 different things. It is talked about in this paper [An Empirical Model of Large-Batch Training](https://arxiv.org/pdf/1812.06162)

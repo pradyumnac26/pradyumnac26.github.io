@@ -13,7 +13,6 @@ FLOPs stands for Floating-Point Operations. It means the total number of floatin
 
 Example: `a*x + b` has 2 FLOPs (one multiplication and one addition).
 
-#### General formula for matrix multiply
 
 For any matrix multiply `[M×K] × [K×N] + [M×N]`:
 
@@ -23,8 +22,5 @@ For any matrix multiply `[M×K] × [K×N] + [M×N]`:
 
 ### FLOPS (Floating-Point Operations per Second)
 
-FLOPS, also written as FLOP/s, means Floating-Point Operations per Second. It’s the number of operations executed each second, so it measures computational performance (speed). For example, “the H100 runs at 67 TFLOPS.”
-
-### How they relate
-
-Time = Total work (FLOPs) ÷ Performance (FLOPS)
+FLOPS, also written as FLOP/s, means Floating-Point Operations per Second. It’s the number of operations executed each second, so it measures computational performance (speed). For example, “the H100 runs at 67 TFLOPS.” See [[GPU Memory Hierarchy]] for where that number comes from.
+Time = Total work (FLOPs) ÷ Performance (FLOPS
