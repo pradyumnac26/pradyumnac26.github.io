@@ -1,3 +1,12 @@
+---
+categories:
+  - Engineering
+topics:
+  - ai
+sources:
+updated: 2026-11-10
+---
+
 FLOPs stands for Floating-Point Operations. It means the total number of floating-point arithmetic operations, so it measures quantity of work. For example, “this task needs 500 FLOPs.”
 
 Example: `a*x + b` has 2 FLOPs (one multiplication and one addition).
